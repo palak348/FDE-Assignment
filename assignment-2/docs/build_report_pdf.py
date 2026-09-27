@@ -21,7 +21,7 @@ from reportlab.platypus import (HRFlowable, Image, KeepTogether, Paragraph, Simp
                                 Spacer, Table, TableStyle)
 
 ROOT = Path(__file__).resolve().parent.parent
-OUT = ROOT / "FDE_Assignment2_Report.pdf"
+OUT = ROOT / "10504_PALAK_AGRAWAL.pdf"
 FIG = ROOT / "docs" / "figures"
 AUTHOR = "Palak Agrawal"
 REPO_URL = "https://github.com/palak348/FDE-Assignment/tree/main/assignment-2"

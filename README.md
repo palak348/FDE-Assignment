@@ -6,7 +6,7 @@
 
 | Assignment | Topic | Contents |
 |---|---|---|
-| [Assignment 2](assignment-2/) | Data Foundations (Classes 4–8) | A repeatable pipeline from raw NYC taxi data to a business KPI: did congestion pricing make Manhattan taxis faster? Includes the [2-page report](assignment-2/FDE_Assignment2_Report.pdf). |
+| [Assignment 2](assignment-2/) | Data Foundations (Classes 4–8) | A repeatable pipeline from raw NYC taxi data to a business KPI: did congestion pricing make Manhattan taxis faster? Includes the [2-page report](assignment-2/10504_PALAK_AGRAWAL.pdf). |
 
 ## In-class challenge notebooks
 

@@ -12,7 +12,7 @@
 > trips in the zone faster?** After adjusting for weather against a control group, taxis in the zone became
 > **3.8 percentage points faster than the rest of the city**, in line with the MTA's own published figure.
 
-**Report:** [`FDE_Assignment2_Report.pdf`](FDE_Assignment2_Report.pdf) (2 pages) &nbsp;|&nbsp; **In-class challenge notebooks:** [`class_notebooks/`](../class_notebooks/) at the repository root
+**Report:** [`10504_PALAK_AGRAWAL.pdf`](10504_PALAK_AGRAWAL.pdf) (2 pages) &nbsp;|&nbsp; **In-class challenge notebooks:** [`class_notebooks/`](../class_notebooks/) at the repository root
 
 ## Contents
 
@@ -161,7 +161,7 @@ pipeline exits with `0` when every month is published, `1` when a month fails, a
 
 ```
 assignment-2/
-├── FDE_Assignment2_Report.pdf   2-page report
+├── 10504_PALAK_AGRAWAL.pdf      2-page report
 ├── tlc_pipeline/                pipeline package: retrieve, ingest, validate, model, metrics, report
 ├── tests/                       offline test suite
 ├── notebooks/                   walkthrough of profiling, validation, modelling and metrics
