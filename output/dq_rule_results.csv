@@ -1,0 +1,27 @@
+source_month,rule_id,rule,severity,rows_flagged,share,why
+2024-01,R01,out_of_month,exclude_all,18,0.0000,Pickup falls outside the file's month (e.g. 2002 or 31 Dec). Belongs to another month's file.
+2024-01,R02,duplicate,exclude_all,0,0.0000,"Exact repeat of another record (same vendor, times, zones, distance, amount)."
+2024-01,R03,reversal_record,exclude_all,35504,0.0120,"Negative total = void/refund adjustment of another trip, not a separate trip."
+2024-01,R04,unknown_zone,exclude_all,31527,0.0106,Pickup or dropoff zone is Unknown/Outside NYC or not in the zone lookup: cannot place the trip.
+2024-01,R05,bad_duration,exclude_speed,37104,0.0125,Duration under 1 min (incl. zero/negative) or over 180 min: meter not closed properly.
+2024-01,R06,zero_distance,exclude_speed,60371,0.0204,No distance recorded: cancelled trip or odometer fault.
+2024-01,R07,extreme_distance,exclude_speed,59,0.0000,"Over 100 miles inside the city: odometer error (max seen ~300,000 mi)."
+2024-01,R08,implausible_speed,exclude_speed,64707,0.0218,Average speed outside 1-60 mph is physically implausible in NYC.
+2024-01,R09,extreme_amount,warn,7,0.0000,"Total above $1,000 (max seen $863k): likely keying error. No fare metric is used, so warn only."
+2024-01,R10,unknown_vendor,warn,0,0.0000,Vendor code not in the TLC data dictionary.
+2024-01,R11,missing_trip_metadata,warn,140162,0.0473,"payment_type=0 records arrive without passenger count / rate code. Times and zones look normal, so kept."
+2024-01,R12,fee_before_pricing,warn,0,0.0000,CBD fee charged before the toll existed: meter configuration issue.
+2024-01,R13,fee_missing_in_cbd,warn,0,0.0000,Trip started or ended in the zone after launch but was not charged the CBD fee.
+2025-01,R01,out_of_month,exclude_all,22,0.0000,Pickup falls outside the file's month (e.g. 2002 or 31 Dec). Belongs to another month's file.
+2025-01,R02,duplicate,exclude_all,0,0.0000,"Exact repeat of another record (same vendor, times, zones, distance, amount)."
+2025-01,R03,reversal_record,exclude_all,63037,0.0181,"Negative total = void/refund adjustment of another trip, not a separate trip."
+2025-01,R04,unknown_zone,exclude_all,28357,0.0082,Pickup or dropoff zone is Unknown/Outside NYC or not in the zone lookup: cannot place the trip.
+2025-01,R05,bad_duration,exclude_speed,41488,0.0119,Duration under 1 min (incl. zero/negative) or over 180 min: meter not closed properly.
+2025-01,R06,zero_distance,exclude_speed,90893,0.0262,No distance recorded: cancelled trip or odometer fault.
+2025-01,R07,extreme_distance,exclude_speed,162,0.0000,"Over 100 miles inside the city: odometer error (max seen ~300,000 mi)."
+2025-01,R08,implausible_speed,exclude_speed,105593,0.0304,Average speed outside 1-60 mph is physically implausible in NYC.
+2025-01,R09,extreme_amount,warn,3,0.0000,"Total above $1,000 (max seen $863k): likely keying error. No fare metric is used, so warn only."
+2025-01,R10,unknown_vendor,warn,0,0.0000,Vendor code not in the TLC data dictionary.
+2025-01,R11,missing_trip_metadata,warn,540149,0.1554,"payment_type=0 records arrive without passenger count / rate code. Times and zones look normal, so kept."
+2025-01,R12,fee_before_pricing,warn,401,0.0001,CBD fee charged before the toll existed: meter configuration issue.
+2025-01,R13,fee_missing_in_cbd,warn,69160,0.0199,Trip started or ended in the zone after launch but was not charged the CBD fee.

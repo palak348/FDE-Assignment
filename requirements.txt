@@ -1,0 +1,11 @@
+duckdb>=1.1
+pandas>=2.2
+pyarrow>=15
+matplotlib>=3.8
+requests>=2.31
+pytest>=8
+# report PDF
+reportlab>=4
+# notebooks (flask runs the Class 5 mock dispatch API)
+flask>=3.0
+jupyter

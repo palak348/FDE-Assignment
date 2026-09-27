@@ -1,0 +1,10 @@
+metric_id,metric,unit,kind,better,before,after,n_before,n_after,change,change_pct,direction
+M1,"Median CBD trip speed, weekday peak",mph,kpi,up,7.7436,7.8879,546080.0000,673564.0000,0.1442,1.8624,better
+M2,Share of CBD peak trips crawling (<5 mph),%,kpi,down,12.7866,11.7137,546080.0000,673564.0000,-1.0729,-8.3910,better
+M3,"90th pct travel time per mile, CBD peak",min/mile,kpi,down,12.7987,12.5172,546080.0000,673564.0000,-0.2815,-2.1994,better
+M4,CBD-internal taxi trips per weekday,trips/day,kpi,neutral,38419.2778,47651.6316,18.0000,19.0000,9232.3538,24.0305,
+M5,CBD trips charged the congestion fee,%,kpi,up,,98.3651,1245705.0000,1565644.0000,,,
+C1,"Control: median speed of trips outside the CBD, weekday peak",mph,control,neutral,9.2989,9.1062,422540.0000,517127.0000,-0.1927,-2.0723,
+C2,Control: M1 on dry days only,mph,control,up,7.8333,7.8722,299750.0000,613562.0000,0.0389,0.4966,better
+C3,Control: MTA published CBD taxi/FHV speed (whole month),mph,control,up,9.3100,9.6600,,,0.3500,3.7594,better
+C4,Control: C1 on dry days only,mph,control,neutral,9.4124,9.1051,234917.0000,465622.0000,-0.3073,-3.2653,

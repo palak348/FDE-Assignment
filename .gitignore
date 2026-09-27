@@ -1,0 +1,12 @@
+# Raw inputs are preserved in git (manifest, zone CSV, API snapshots) EXCEPT the trip
+# Parquet files (50-60 MB each): the pipeline re-downloads them and verifies them against
+# data/raw/manifest.json. The warehouse is rebuilt from raw on every run.
+data/raw/tlc/*.parquet
+data/warehouse/
+logs/
+*.part
+*.tmp
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+.venv/

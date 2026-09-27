@@ -1,0 +1,1067 @@
+[
+ {
+  "month": "2019-10-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "7.98"
+ },
+ {
+  "month": "2019-10-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "11.82"
+ },
+ {
+  "month": "2019-10-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.88"
+ },
+ {
+  "month": "2019-11-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.0"
+ },
+ {
+  "month": "2019-11-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "11.65"
+ },
+ {
+  "month": "2019-11-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.3"
+ },
+ {
+  "month": "2019-12-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "7.98"
+ },
+ {
+  "month": "2019-12-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.11"
+ },
+ {
+  "month": "2019-12-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.63"
+ },
+ {
+  "month": "2020-01-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.33"
+ },
+ {
+  "month": "2020-01-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "13.12"
+ },
+ {
+  "month": "2020-01-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.69"
+ },
+ {
+  "month": "2020-02-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.99"
+ },
+ {
+  "month": "2020-02-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "13.1"
+ },
+ {
+  "month": "2020-02-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.14"
+ },
+ {
+  "month": "2020-03-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.65"
+ },
+ {
+  "month": "2020-03-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "13.27"
+ },
+ {
+  "month": "2020-03-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.56"
+ },
+ {
+  "month": "2020-04-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "16.42"
+ },
+ {
+  "month": "2020-04-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "18.48"
+ },
+ {
+  "month": "2020-04-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "19.48"
+ },
+ {
+  "month": "2020-05-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "15.19"
+ },
+ {
+  "month": "2020-05-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "16.89"
+ },
+ {
+  "month": "2020-05-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "18.1"
+ },
+ {
+  "month": "2020-06-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "13.34"
+ },
+ {
+  "month": "2020-06-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "14.94"
+ },
+ {
+  "month": "2020-06-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.1"
+ },
+ {
+  "month": "2020-07-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "12.43"
+ },
+ {
+  "month": "2020-07-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "14.26"
+ },
+ {
+  "month": "2020-07-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.78"
+ },
+ {
+  "month": "2020-08-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "11.96"
+ },
+ {
+  "month": "2020-08-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "13.91"
+ },
+ {
+  "month": "2020-08-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.66"
+ },
+ {
+  "month": "2020-09-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "11.4"
+ },
+ {
+  "month": "2020-09-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "13.0"
+ },
+ {
+  "month": "2020-09-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.09"
+ },
+ {
+  "month": "2020-10-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "10.92"
+ },
+ {
+  "month": "2020-10-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.71"
+ },
+ {
+  "month": "2020-10-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.17"
+ },
+ {
+  "month": "2020-11-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "11.19"
+ },
+ {
+  "month": "2020-11-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "13.05"
+ },
+ {
+  "month": "2020-11-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.48"
+ },
+ {
+  "month": "2020-12-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "11.0"
+ },
+ {
+  "month": "2020-12-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.7"
+ },
+ {
+  "month": "2020-12-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.08"
+ },
+ {
+  "month": "2021-01-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "12.22"
+ },
+ {
+  "month": "2021-01-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "13.9"
+ },
+ {
+  "month": "2021-01-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.29"
+ },
+ {
+  "month": "2021-02-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "11.39"
+ },
+ {
+  "month": "2021-02-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "13.13"
+ },
+ {
+  "month": "2021-02-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "15.99"
+ },
+ {
+  "month": "2021-03-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "11.21"
+ },
+ {
+  "month": "2021-03-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "13.3"
+ },
+ {
+  "month": "2021-03-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.21"
+ },
+ {
+  "month": "2021-04-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "10.79"
+ },
+ {
+  "month": "2021-04-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.76"
+ },
+ {
+  "month": "2021-04-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.2"
+ },
+ {
+  "month": "2021-05-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "10.46"
+ },
+ {
+  "month": "2021-05-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.85"
+ },
+ {
+  "month": "2021-05-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.4"
+ },
+ {
+  "month": "2021-06-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.84"
+ },
+ {
+  "month": "2021-06-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.43"
+ },
+ {
+  "month": "2021-06-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "15.93"
+ },
+ {
+  "month": "2021-07-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "10.08"
+ },
+ {
+  "month": "2021-07-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "13.39"
+ },
+ {
+  "month": "2021-07-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.87"
+ },
+ {
+  "month": "2021-08-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "10.31"
+ },
+ {
+  "month": "2021-08-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "13.57"
+ },
+ {
+  "month": "2021-08-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.09"
+ },
+ {
+  "month": "2021-09-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.56"
+ },
+ {
+  "month": "2021-09-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.2"
+ },
+ {
+  "month": "2021-09-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.52"
+ },
+ {
+  "month": "2021-10-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.19"
+ },
+ {
+  "month": "2021-10-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.05"
+ },
+ {
+  "month": "2021-10-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.39"
+ },
+ {
+  "month": "2021-11-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.17"
+ },
+ {
+  "month": "2021-11-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.18"
+ },
+ {
+  "month": "2021-11-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.89"
+ },
+ {
+  "month": "2021-12-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.25"
+ },
+ {
+  "month": "2021-12-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.88"
+ },
+ {
+  "month": "2021-12-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.45"
+ },
+ {
+  "month": "2022-01-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "10.67"
+ },
+ {
+  "month": "2022-01-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "13.22"
+ },
+ {
+  "month": "2022-01-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.54"
+ },
+ {
+  "month": "2022-02-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.58"
+ },
+ {
+  "month": "2022-02-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.46"
+ },
+ {
+  "month": "2022-02-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.76"
+ },
+ {
+  "month": "2022-03-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.49"
+ },
+ {
+  "month": "2022-03-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.54"
+ },
+ {
+  "month": "2022-03-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.87"
+ },
+ {
+  "month": "2022-04-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.32"
+ },
+ {
+  "month": "2022-04-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.4"
+ },
+ {
+  "month": "2022-04-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.1"
+ },
+ {
+  "month": "2022-05-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.06"
+ },
+ {
+  "month": "2022-05-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.07"
+ },
+ {
+  "month": "2022-05-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.84"
+ },
+ {
+  "month": "2022-06-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.99"
+ },
+ {
+  "month": "2022-06-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.34"
+ },
+ {
+  "month": "2022-06-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.39"
+ },
+ {
+  "month": "2022-07-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.59"
+ },
+ {
+  "month": "2022-07-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "13.41"
+ },
+ {
+  "month": "2022-07-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.58"
+ },
+ {
+  "month": "2022-08-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.46"
+ },
+ {
+  "month": "2022-08-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "13.31"
+ },
+ {
+  "month": "2022-08-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.45"
+ },
+ {
+  "month": "2022-09-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.52"
+ },
+ {
+  "month": "2022-09-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "11.11"
+ },
+ {
+  "month": "2022-09-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.29"
+ },
+ {
+  "month": "2022-10-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.65"
+ },
+ {
+  "month": "2022-10-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.02"
+ },
+ {
+  "month": "2022-10-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.86"
+ },
+ {
+  "month": "2022-11-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.66"
+ },
+ {
+  "month": "2022-11-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.15"
+ },
+ {
+  "month": "2022-11-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.77"
+ },
+ {
+  "month": "2022-12-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.2"
+ },
+ {
+  "month": "2022-12-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.32"
+ },
+ {
+  "month": "2022-12-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.84"
+ },
+ {
+  "month": "2023-01-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.54"
+ },
+ {
+  "month": "2023-01-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.91"
+ },
+ {
+  "month": "2023-01-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.4"
+ },
+ {
+  "month": "2023-02-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.29"
+ },
+ {
+  "month": "2023-02-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.93"
+ },
+ {
+  "month": "2023-02-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.2"
+ },
+ {
+  "month": "2023-03-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.05"
+ },
+ {
+  "month": "2023-03-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.65"
+ },
+ {
+  "month": "2023-03-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.61"
+ },
+ {
+  "month": "2023-04-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.03"
+ },
+ {
+  "month": "2023-04-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.64"
+ },
+ {
+  "month": "2023-04-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.21"
+ },
+ {
+  "month": "2023-05-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.64"
+ },
+ {
+  "month": "2023-05-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "11.87"
+ },
+ {
+  "month": "2023-05-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.5"
+ },
+ {
+  "month": "2023-06-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.72"
+ },
+ {
+  "month": "2023-06-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.36"
+ },
+ {
+  "month": "2023-06-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.6"
+ },
+ {
+  "month": "2023-07-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.94"
+ },
+ {
+  "month": "2023-07-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "13.22"
+ },
+ {
+  "month": "2023-07-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.43"
+ },
+ {
+  "month": "2023-08-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.19"
+ },
+ {
+  "month": "2023-08-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "13.17"
+ },
+ {
+  "month": "2023-08-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.13"
+ },
+ {
+  "month": "2023-09-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.02"
+ },
+ {
+  "month": "2023-09-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "11.65"
+ },
+ {
+  "month": "2023-09-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.3"
+ },
+ {
+  "month": "2023-10-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.15"
+ },
+ {
+  "month": "2023-10-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "11.92"
+ },
+ {
+  "month": "2023-10-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.52"
+ },
+ {
+  "month": "2023-11-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.18"
+ },
+ {
+  "month": "2023-11-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "11.92"
+ },
+ {
+  "month": "2023-11-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.56"
+ },
+ {
+  "month": "2023-12-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.01"
+ },
+ {
+  "month": "2023-12-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.15"
+ },
+ {
+  "month": "2023-12-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.71"
+ },
+ {
+  "month": "2024-01-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.31"
+ },
+ {
+  "month": "2024-01-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.81"
+ },
+ {
+  "month": "2024-01-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.17"
+ },
+ {
+  "month": "2024-02-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.99"
+ },
+ {
+  "month": "2024-02-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.74"
+ },
+ {
+  "month": "2024-02-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.83"
+ },
+ {
+  "month": "2024-03-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.76"
+ },
+ {
+  "month": "2024-03-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.54"
+ },
+ {
+  "month": "2024-03-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.45"
+ },
+ {
+  "month": "2024-04-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.62"
+ },
+ {
+  "month": "2024-04-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.46"
+ },
+ {
+  "month": "2024-04-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.8"
+ },
+ {
+  "month": "2024-05-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.24"
+ },
+ {
+  "month": "2024-05-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "11.73"
+ },
+ {
+  "month": "2024-05-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "15.97"
+ },
+ {
+  "month": "2024-06-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.41"
+ },
+ {
+  "month": "2024-06-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.29"
+ },
+ {
+  "month": "2024-06-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.2"
+ },
+ {
+  "month": "2024-07-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.74"
+ },
+ {
+  "month": "2024-07-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "13.07"
+ },
+ {
+  "month": "2024-07-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.06"
+ },
+ {
+  "month": "2024-08-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.81"
+ },
+ {
+  "month": "2024-08-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "13.17"
+ },
+ {
+  "month": "2024-08-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.84"
+ },
+ {
+  "month": "2024-09-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "7.98"
+ },
+ {
+  "month": "2024-09-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "11.76"
+ },
+ {
+  "month": "2024-09-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.16"
+ },
+ {
+  "month": "2024-10-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.08"
+ },
+ {
+  "month": "2024-10-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.03"
+ },
+ {
+  "month": "2024-10-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.52"
+ },
+ {
+  "month": "2024-11-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.32"
+ },
+ {
+  "month": "2024-11-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.09"
+ },
+ {
+  "month": "2024-11-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.39"
+ },
+ {
+  "month": "2024-12-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "7.83"
+ },
+ {
+  "month": "2024-12-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "11.94"
+ },
+ {
+  "month": "2024-12-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.4"
+ },
+ {
+  "month": "2025-01-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.66"
+ },
+ {
+  "month": "2025-01-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.93"
+ },
+ {
+  "month": "2025-01-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "17.11"
+ },
+ {
+  "month": "2025-02-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.3"
+ },
+ {
+  "month": "2025-02-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.67"
+ },
+ {
+  "month": "2025-02-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.76"
+ },
+ {
+  "month": "2025-03-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.28"
+ },
+ {
+  "month": "2025-03-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.81"
+ },
+ {
+  "month": "2025-03-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.6"
+ },
+ {
+  "month": "2025-04-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.93"
+ },
+ {
+  "month": "2025-04-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.37"
+ },
+ {
+  "month": "2025-04-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.46"
+ },
+ {
+  "month": "2025-05-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.35"
+ },
+ {
+  "month": "2025-05-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "11.58"
+ },
+ {
+  "month": "2025-05-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "15.91"
+ },
+ {
+  "month": "2025-06-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.64"
+ },
+ {
+  "month": "2025-06-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.09"
+ },
+ {
+  "month": "2025-06-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.09"
+ },
+ {
+  "month": "2025-07-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "8.71"
+ },
+ {
+  "month": "2025-07-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.47"
+ },
+ {
+  "month": "2025-07-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.56"
+ },
+ {
+  "month": "2025-08-01T00:00:00.000",
+  "zone": "CBD",
+  "zonal_speed": "9.17"
+ },
+ {
+  "month": "2025-08-01T00:00:00.000",
+  "zone": "CBD Adjacent",
+  "zonal_speed": "12.76"
+ },
+ {
+  "month": "2025-08-01T00:00:00.000",
+  "zone": "Greater NYC",
+  "zonal_speed": "16.63"
+ }
+]

@@ -1,0 +1,13 @@
+source_month,gate,passed,detail
+2024-01,every_day_present,True,"31/31 days; lowest 2024-01-07 with 67,543 trips (70% of median day 97,117)"
+2024-01,out_of_month_share,True,0.0006% of rows outside the month (limit 0.10%)
+2024-01,rows_match_source_file,True,"parquet metadata=2,964,624 raw_trips=2,964,624 fact_trip=2,964,624"
+2024-01,speed_ineligible_share,True,4.47% of trips unusable for speed (limit 15%)
+2024-01,weather_complete,True,31/31 days of weather
+2025-01,every_day_present,True,"31/31 days; lowest 2025-01-05 with 79,624 trips (68% of median day 117,592)"
+2025-01,out_of_month_share,True,0.0006% of rows outside the month (limit 0.10%)
+2025-01,rows_match_source_file,True,"parquet metadata=3,475,226 raw_trips=3,475,226 fact_trip=3,475,226"
+2025-01,speed_ineligible_share,True,5.75% of trips unusable for speed (limit 15%)
+2025-01,weather_complete,True,31/31 days of weather
+reference,cbd_zones_valid,True,38 CBD zones (expected 38); 0 missing from lookup; 0 outside Manhattan
+reference,zone_lookup_rows,True,265 zones (expected 265)

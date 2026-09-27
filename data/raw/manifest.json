@@ -1,0 +1,73 @@
+{
+  "data/raw/api/mta_cbd_speeds.json": {
+    "api_count": 213,
+    "dataset": "6p29-6xqn",
+    "pages": 5,
+    "records": 213,
+    "retrieved_at": "2026-09-25T11:41:00+00:00",
+    "select": null,
+    "sha256": "dd615f00f8d6ebb05a34c5d0609f8b191e43cc5426d95b4c67f12d5fe4ca57a9",
+    "source_url": "https://data.ny.gov/resource/6p29-6xqn.json"
+  },
+  "data/raw/api/mta_cbd_taxi_zones.json": {
+    "api_count": 38,
+    "dataset": "yfdc-w5jh",
+    "pages": 1,
+    "records": 38,
+    "retrieved_at": "2026-09-25T11:40:50+00:00",
+    "select": "taxi_zone",
+    "sha256": "44c9a2d99c1c8d9e5a2b6ced9c5fe8b326942dc9f079d4baeb5dccb74d302e46",
+    "source_url": "https://data.ny.gov/resource/yfdc-w5jh.json"
+  },
+  "data/raw/api/open_meteo_2024-01.json": {
+    "params": {
+      "daily": "precipitation_sum,snowfall_sum,temperature_2m_mean",
+      "end_date": "2024-01-31",
+      "latitude": 40.758,
+      "longitude": -73.9855,
+      "start_date": "2024-01-01",
+      "timezone": "America/New_York"
+    },
+    "records": 31,
+    "retrieved_at": "2026-09-25T11:41:14+00:00",
+    "sha256": "3ed3dd35911cc77a02d00a8898f85ea094b98d383e24003e1ed5d7803b2f72b2",
+    "source_url": "https://archive-api.open-meteo.com/v1/archive"
+  },
+  "data/raw/api/open_meteo_2025-01.json": {
+    "params": {
+      "daily": "precipitation_sum,snowfall_sum,temperature_2m_mean",
+      "end_date": "2025-01-31",
+      "latitude": 40.758,
+      "longitude": -73.9855,
+      "start_date": "2025-01-01",
+      "timezone": "America/New_York"
+    },
+    "records": 31,
+    "retrieved_at": "2026-09-25T11:41:28+00:00",
+    "sha256": "73a9ccd377dcf268c29d3de5f34114192d4e7db486dc280412d3b732480c59ae",
+    "source_url": "https://archive-api.open-meteo.com/v1/archive"
+  },
+  "data/raw/tlc/taxi_zone_lookup.csv": {
+    "bytes": 12331,
+    "declared_bytes": -1,
+    "retrieved_at": "2026-09-25T11:40:47+00:00",
+    "sha256": "1a99e105092230f8620f301edcca7f80d3080642ff404d28ed957d3fa222c8ed",
+    "source_url": "https://d37ci6vzurychx.cloudfront.net/misc/taxi_zone_lookup.csv"
+  },
+  "data/raw/tlc/yellow_tripdata_2024-01.parquet": {
+    "bytes": 49961641,
+    "declared_bytes": 49961641,
+    "retrieved_at": "2026-09-25T11:41:07+00:00",
+    "rows_in_parquet_metadata": 2964624,
+    "sha256": "c4d59da7bbc8abaeeeb1727947ee93d9891a71acb42854bd80db1571b2030510",
+    "source_url": "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-01.parquet"
+  },
+  "data/raw/tlc/yellow_tripdata_2025-01.parquet": {
+    "bytes": 59158238,
+    "declared_bytes": 59158238,
+    "retrieved_at": "2026-09-25T11:41:22+00:00",
+    "rows_in_parquet_metadata": 3475226,
+    "sha256": "9af277e4c0d3f9deb30644da822981e1e7df6af58313170fd3aa8a474485488a",
+    "source_url": "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2025-01.parquet"
+  }
+}
