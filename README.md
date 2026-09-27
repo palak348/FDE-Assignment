@@ -1,7 +1,9 @@
-# FDE Assignments: Palak Agrawal
+# Forward Deployed Engineering: Assignments
 
-| Assignment | Topic | Folder |
+**Palak Agrawal**
+
+| Assignment | Topic | Contents |
 |---|---|---|
-| Assignment 2 | Data Foundations (Classes 4–8): did NYC congestion pricing make Manhattan taxis faster? A dependable pipeline from raw TLC data to a business KPI, plus the completed in-class FlashEats challenge notebooks | [`assignment-2/`](assignment-2/) |
+| [Assignment 2](assignment-2/) | Data Foundations (Classes 4–8) | A repeatable pipeline from raw NYC taxi data to a business KPI: did congestion pricing make Manhattan taxis faster? Includes the [2-page report](assignment-2/FDE_Assignment2_Report.pdf) and the completed in-class [challenge notebooks](assignment-2/class_notebooks/). |
 
-Start with [`assignment-2/README.md`](assignment-2/README.md) and the 2-page report [`assignment-2/FDE_Assignment2_Report.pdf`](assignment-2/FDE_Assignment2_Report.pdf).
+Each assignment folder is self-contained, with its own README, code, data and instructions for reproducing the results.
