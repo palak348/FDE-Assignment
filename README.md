@@ -1,6 +1,6 @@
 # Did congestion pricing make Manhattan taxis faster?
 
-**FDE Data Foundations, Assignment 2** · Track B: NYC TLC trip data · Jan 2024 vs Jan 2025
+**Palak Agrawal** · FDE Data Foundations, Assignment 2 · Track B: NYC TLC trip data · Jan 2024 vs Jan 2025
 
 | Submission item | Where |
 |---|---|

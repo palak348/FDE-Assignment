@@ -23,7 +23,7 @@ from reportlab.platypus import (HRFlowable, Image, KeepTogether, Paragraph, Simp
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "FDE_Assignment2_Report.pdf"
 FIG = ROOT / "docs" / "figures"
-AUTHOR = ""    # e.g. "Name - Roll no."; left out of the PDF while empty
+AUTHOR = "Palak Agrawal"
 REPO_URL = "https://github.com/palak348/FDE-Assignment"
 
 INK, GREY, LIGHT, ACCENT = (colors.HexColor(c) for c in ("#1b1b1b", "#5f5f5f", "#bdbdbd", "#1f3a5f"))
@@ -272,7 +272,7 @@ def figure_charts():
 # ---------------------------------------------------------------- content
 meta = "FDE Data Foundations, Assignment 2 (Track B: NYC TLC trip data)"
 if AUTHOR:
-    meta = f"{AUTHOR}<br/>" + meta
+    meta = f"<b>{AUTHOR}</b> &nbsp;|&nbsp; " + meta
 if REPO_URL:
     meta += f'<br/>Code: <link href="{REPO_URL}" color="#1f3a5f">{REPO_URL}</link>'
 
