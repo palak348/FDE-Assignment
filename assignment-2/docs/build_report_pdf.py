@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "FDE_Assignment2_Report.pdf"
 FIG = ROOT / "docs" / "figures"
 AUTHOR = "Palak Agrawal"
-REPO_URL = "https://github.com/palak348/FDE-Assignment"
+REPO_URL = "https://github.com/palak348/FDE-Assignment/tree/main/assignment-2"
 
 INK, GREY, LIGHT, ACCENT = (colors.HexColor(c) for c in ("#1b1b1b", "#5f5f5f", "#bdbdbd", "#1f3a5f"))
 BLUE, ORANGE, GREY_BAR = "#2f6db3", "#d9642b", "#9a9a9a"
