@@ -12,7 +12,7 @@
 > trips in the zone faster?** After adjusting for weather against a control group, taxis in the zone became
 > **3.8 percentage points faster than the rest of the city**, in line with the MTA's own published figure.
 
-**Report:** [`FDE_Assignment2_Report.pdf`](FDE_Assignment2_Report.pdf) (2 pages)
+**Report:** [`FDE_Assignment2_Report.pdf`](FDE_Assignment2_Report.pdf) (2 pages) &nbsp;|&nbsp; **In-class challenge notebooks:** [`class_notebooks/`](../class_notebooks/) at the repository root
 
 ## Contents
 
@@ -20,9 +20,8 @@
 2. [Key findings](#key-findings)
 3. [Approach](#approach)
 4. [Facts, assumptions and limitations](#facts-assumptions-and-limitations)
-5. [In-class challenge notebooks](#in-class-challenge-notebooks)
-6. [Reproducing the results](#reproducing-the-results)
-7. [Repository structure](#repository-structure)
+5. [Reproducing the results](#reproducing-the-results)
+6. [Repository structure](#repository-structure)
 
 ## Overview
 
@@ -138,17 +137,6 @@ flowchart LR
 | **Limitation** | One month on each side; the net effect is 3.2 points if any trace of snow counts as a wet day |
 | **Limitation** | Taxis only; the analysis shows association, not proof of cause |
 
-## In-class challenge notebooks
-
-The completed FlashEats notebooks from Classes 5–7 are in [`class_notebooks/`](class_notebooks/). Each keeps the
-original challenge prompts and adds working code, outputs and a written answer.
-
-| Class | Topic | Notebook | Main finding |
-|---|---|---|---|
-| 5 | Data retrieval | [FlashEats_Class5_Student](class_notebooks/flasheats/FlashEats_Class5_Student.ipynb) | Late deliveries build up before pickup; the dispatch API needs retries, and all 1,600 records are proven retrieved |
-| 6 | Data validation | [FlashEats_Class6_Student](class_notebooks/flasheats/FlashEats_Class6_Student.ipynb) | The "56% late" figure is reproducible but not publishable: definitions range from 23% to 57% and no KPI owner exists |
-| 7 | Workflow modelling | [FlashEats_Class7_Challenge](class_notebooks/flasheats/FlashEats_Class7_Challenge.ipynb) | Order-centric model; 74% of frustrated late journeys received no intervention |
-
 ## Reproducing the results
 
 **Requirements:** Python 3.11 or later, and about 110 MB of free disk space for the trip data.
@@ -179,8 +167,7 @@ assignment-2/
 ├── notebooks/                   walkthrough of profiling, validation, modelling and metrics
 ├── docs/                        source map, data model and report builder
 ├── output/                      evidence tables and charts produced by the pipeline
-├── data/raw/                    raw API snapshots, zone lookup and checksum manifest
-└── class_notebooks/             completed FlashEats challenge notebooks (Classes 5–7) with their data
+└── data/raw/                    raw API snapshots, zone lookup and checksum manifest
 ```
 
 Large trip files are not committed; the pipeline downloads them and verifies them against `data/raw/manifest.json`.
