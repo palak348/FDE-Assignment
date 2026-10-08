@@ -1,0 +1,232 @@
+{
+  "case": {
+    "case_id": "EXT-02",
+    "request_id": "REQ-1007",
+    "edge_case": "conflicting / expired vendor info",
+    "title": "Registry says approved, risk service says expired",
+    "expectations": {
+      "approvals_all": [
+        "Department Head",
+        "Finance",
+        "Procurement",
+        "Security"
+      ],
+      "flags_all": [
+        "conflicting_vendor_evidence",
+        "vendor_review_expired",
+        "security_review_required"
+      ],
+      "flags_none": [
+        "budget_insufficient",
+        "vendor_risk_unavailable"
+      ],
+      "acceptable_next_actions": [
+        "manual_review"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-1007",
+    "recommendation": "This request requires manual review due to conflicting vendor security status, an expired security assessment, and potential overlap with an existing company-wide license for SignalWatch.",
+    "evidence": [
+      {
+        "source": "run_policy_checks",
+        "finding": "Required approvals: Department Head, Procurement, Finance, Security",
+        "reference": "Policy section 4 & 5"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Existing approved license for SignalWatch (SW005) available to Engineering",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor security review status is expired (last review 2025-07-01)",
+        "reference": "GET /vendor-risk/SignalWatch"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry shows security status as 'Approved' (2025-07-01), conflicting with vendor-risk service",
+        "reference": "vendors.csv/V005"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Request is within the remaining Engineering software budget",
+        "reference": "department_budgets.csv/Engineering"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier $10,000.01 - $25,000: $24,000.00 is between $10,000.01 and $25,000 -> minimum approvals Department Head, Finance, Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Engineering): $24,000 requested vs $26,000 available",
+        "reference": "department_budgets.csv/Engineering; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service: status 'expired', last review 2025-07-01, risk medium, personal data=False, outside region=False; registry: 'Approved' (2025-07-01), new vendor=False, legal terms 'Approved'",
+        "reference": "vendor-risk API + vendors.csv; Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Registry says 'Approved' (2025-07-01) but vendor-risk service says 'expired' (2025-07-01) - conflict must be resolved by Security, not silently",
+        "reference": "Policy sections 5, 10"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Data access level 'production_telemetry' (production data access)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Integration 'Production cloud account' (production integration)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Vendor security assessment is not current (status 'expired', review date 2025-07-01)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Registry and vendor-risk service disagree",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Existing approved software overlaps: SignalWatch (Observability, 80 seats, scope Engineering)",
+        "reference": "software_catalog.csv; Policy section 3"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance",
+      "Security"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "security_review_required",
+      "vendor_review_expired",
+      "conflicting_vendor_evidence",
+      "existing_tool_overlap"
+    ],
+    "next_step": "Route to Security for resolution of the conflicting vendor status and assessment of whether the existing SignalWatch license can accommodate the 'Advanced' features requested.",
+    "human_review_required": true,
+    "next_action": "manual_review",
+    "telemetry": {
+      "llm_calls": 2,
+      "tool_calls": 6,
+      "tool_names": [
+        "get_request_details",
+        "check_budget",
+        "search_software_catalog",
+        "get_vendor_registry",
+        "get_vendor_risk",
+        "run_policy_checks"
+      ],
+      "architecture": "single",
+      "model": "gemini-3.1-flash-lite",
+      "prompt_tokens": 6762,
+      "completion_tokens": 594,
+      "llm_latency_ms": 17722.5,
+      "guardrail_corrections": [],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": null
+    }
+  },
+  "raw_llm_decision": {
+    "recommendation": "This request requires manual review due to conflicting vendor security status, an expired security assessment, and potential overlap with an existing company-wide license for SignalWatch.",
+    "next_action": "manual_review",
+    "evidence": [
+      {
+        "source": "run_policy_checks",
+        "finding": "Required approvals: Department Head, Procurement, Finance, Security",
+        "reference": "Policy section 4 & 5"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "Existing approved license for SignalWatch (SW005) available to Engineering",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor security review status is expired (last review 2025-07-01)",
+        "reference": "GET /vendor-risk/SignalWatch"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Registry shows security status as 'Approved' (2025-07-01), conflicting with vendor-risk service",
+        "reference": "vendors.csv/V005"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Request is within the remaining Engineering software budget",
+        "reference": "department_budgets.csv/Engineering"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance",
+      "Security"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "security_review_required",
+      "vendor_review_expired",
+      "conflicting_vendor_evidence",
+      "existing_tool_overlap"
+    ],
+    "next_step": "Route to Security for resolution of the conflicting vendor status and assessment of whether the existing SignalWatch license can accommodate the 'Advanced' features requested.",
+    "rationale": "The request involves production data access and integration, triggering a mandatory security review. Furthermore, the vendor's security status is expired and reported inconsistently across internal systems. Finally, the requester already has access to SignalWatch, so it must be determined if the 'Advanced' tier is a necessary upgrade or if existing capacity can be utilized."
+  },
+  "evidence_pack": null,
+  "tool_calls": [
+    {
+      "name": "get_request_details",
+      "arguments": {},
+      "latency_ms": 13.2
+    },
+    {
+      "name": "check_budget",
+      "arguments": {
+        "annual_cost_usd": 24000,
+        "department": "Engineering"
+      },
+      "latency_ms": 1.8
+    },
+    {
+      "name": "search_software_catalog",
+      "arguments": {
+        "vendor_name": "SignalWatch",
+        "product_name": "SignalWatch Advanced",
+        "category": "Observability"
+      },
+      "latency_ms": 8.9
+    },
+    {
+      "name": "get_vendor_registry",
+      "arguments": {
+        "vendor_name": "SignalWatch"
+      },
+      "latency_ms": 2.7
+    },
+    {
+      "name": "get_vendor_risk",
+      "arguments": {
+        "vendor_name": "SignalWatch"
+      },
+      "latency_ms": 9.7
+    },
+    {
+      "name": "run_policy_checks",
+      "arguments": {},
+      "latency_ms": 13.7
+    }
+  ],
+  "error": null,
+  "latency_ms": 17784.0
+}

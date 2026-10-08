@@ -1,0 +1,281 @@
+{
+  "case": {
+    "case_id": "EXT-01",
+    "request_id": "REQ-1004",
+    "edge_case": "security-sensitive AI tool",
+    "title": "Limited-use AI tool with customer PII, data outside region",
+    "expectations": {
+      "approvals_all": [
+        "Department Head",
+        "Procurement",
+        "Security",
+        "Privacy"
+      ],
+      "approvals_none": [
+        "CFO"
+      ],
+      "flags_all": [
+        "security_review_required",
+        "privacy_review_required"
+      ],
+      "flags_none": [
+        "budget_insufficient",
+        "vendor_risk_unavailable"
+      ],
+      "max_missing_information": 0,
+      "acceptable_next_actions": [
+        "route_for_approval",
+        "manual_review"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-1004",
+    "recommendation": "The request is within budget but requires mandatory Security, Privacy, and Legal reviews due to the processing of customer PII and cross-region data storage. Additionally, the requester should verify if the existing 'NeuralDesk Business' license can accommodate this specific use case before proceeding with a new purchase.",
+    "evidence": [
+      {
+        "source": "get_request_details",
+        "finding": "Request REQ-1004 for NeuralDesk Support Assistant, $6,000/year, 20 users, Customer Success department.",
+        "reference": "requests/REQ-1004"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Request is within the available budget of $7,000 for Customer Success.",
+        "reference": "department_budgets.csv/Customer Success"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "NeuralDesk Business is already approved and available to the requester, with notes indicating sensitive data restrictions.",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor risk level is medium; processes personal data and stores data outside the region; sensitive-data use requires Security and Privacy review.",
+        "reference": "GET /vendor-risk/NeuralDesk"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Required approvals: Department Head, Procurement, Security, Privacy, Legal.",
+        "reference": "procurement_policy.md"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier $1,000.01 - $10,000: $6,000.00 is between $1,000.01 and $10,000 -> minimum approvals Department Head, Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Customer Success): $6,000 requested vs $7,000 available",
+        "reference": "department_budgets.csv/Customer Success; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service: status 'approved', last review 2026-03-02, risk medium, personal data=True, outside region=True; registry: 'Approved' (2026-03-02), new vendor=False, legal terms 'Approved'",
+        "reference": "vendor-risk API + vendors.csv; Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Data access level 'customer_pii' (customer PII)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Privacy review required: Tool will process customer PII",
+        "reference": "Policy section 6"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Privacy review required: Vendor stores data outside the operating region and data is sensitive",
+        "reference": "Policy section 6"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Legal review required: Cross-region processing of personal data",
+        "reference": "Policy section 7"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Existing approved software overlaps: NeuralDesk Business (General AI, 150 seats, scope Company-wide)",
+        "reference": "software_catalog.csv; Policy section 3"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Security",
+      "Privacy",
+      "Legal"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "security_review_required",
+      "privacy_review_required",
+      "legal_review_required",
+      "existing_tool_overlap"
+    ],
+    "next_step": "Route the request to the Department Head and Procurement for initial review, and trigger mandatory Security, Privacy, and Legal assessments.",
+    "human_review_required": true,
+    "next_action": "route_for_approval",
+    "telemetry": {
+      "llm_calls": 3,
+      "tool_calls": 6,
+      "tool_names": [
+        "get_request_details",
+        "check_budget",
+        "search_software_catalog",
+        "get_vendor_registry",
+        "get_vendor_risk",
+        "run_policy_checks"
+      ],
+      "architecture": "staged",
+      "model": "gemini-3.1-flash-lite",
+      "prompt_tokens": 9989,
+      "completion_tokens": 1318,
+      "llm_latency_ms": 16766.8,
+      "guardrail_corrections": [
+        "dropped model missing-info not supported by request data: Confirmation if 'NeuralDesk Support Assistant' is covered un",
+        "dropped model missing-info not supported by request data: Specific data-handling practices for the requested integrati"
+      ],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": null
+    }
+  },
+  "raw_llm_decision": {
+    "recommendation": "The request is within budget but requires mandatory Security, Privacy, and Legal reviews due to the processing of customer PII and cross-region data storage. Additionally, the requester should verify if the existing 'NeuralDesk Business' license can accommodate this specific use case before proceeding with a new purchase.",
+    "next_action": "route_for_approval",
+    "evidence": [
+      {
+        "source": "get_request_details",
+        "finding": "Request REQ-1004 for NeuralDesk Support Assistant, $6,000/year, 20 users, Customer Success department.",
+        "reference": "requests/REQ-1004"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Request is within the available budget of $7,000 for Customer Success.",
+        "reference": "department_budgets.csv/Customer Success"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "NeuralDesk Business is already approved and available to the requester, with notes indicating sensitive data restrictions.",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor risk level is medium; processes personal data and stores data outside the region; sensitive-data use requires Security and Privacy review.",
+        "reference": "GET /vendor-risk/NeuralDesk"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Required approvals: Department Head, Procurement, Security, Privacy, Legal.",
+        "reference": "procurement_policy.md"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Security",
+      "Privacy",
+      "Legal"
+    ],
+    "missing_information": [
+      "Confirmation if 'NeuralDesk Support Assistant' is covered under the existing 'NeuralDesk Business' enterprise agreement.",
+      "Specific data-handling practices for the requested integration with HelpDeskly."
+    ],
+    "risk_flags": [
+      "security_review_required",
+      "privacy_review_required",
+      "legal_review_required",
+      "existing_tool_overlap"
+    ],
+    "next_step": "Route the request to the Department Head and Procurement for initial review, and trigger mandatory Security, Privacy, and Legal assessments.",
+    "rationale": "While the request is within budget, it triggers multiple mandatory review policies due to the handling of customer PII and cross-region data storage. Furthermore, the existence of 'NeuralDesk Business' in the software catalog necessitates a check for tool overlap to avoid redundant spend."
+  },
+  "evidence_pack": {
+    "need_summary": "The requester needs NeuralDesk Support Assistant to draft support replies and summarize ticket history for customer-success agents, involving integration with HelpDeskly.",
+    "facts": [
+      {
+        "source": "get_request_details",
+        "finding": "Request REQ-1004 for NeuralDesk Support Assistant, $6,000/year, 20 users, Customer Success department.",
+        "reference": "requests/REQ-1004"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Request is within the available budget of $7,000 for Customer Success.",
+        "reference": "department_budgets.csv/Customer Success"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "NeuralDesk Business is already approved and available to the requester, with notes indicating sensitive data restrictions.",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "NeuralDesk is an approved vendor with security and legal terms approved as of 2026-03-02.",
+        "reference": "vendors.csv/V009"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor risk level is medium; processes personal data and stores data outside the region; sensitive-data use requires Security and Privacy review.",
+        "reference": "GET /vendor-risk/NeuralDesk"
+      }
+    ],
+    "existing_tools": {
+      "candidates": [
+        "NeuralDesk Business"
+      ],
+      "credible_gap": "The company already has an approved license for NeuralDesk Business. It is unclear if 'NeuralDesk Support Assistant' is a distinct product or if the existing 'NeuralDesk Business' license can cover this use case, especially given the sensitive data (customer PII) involved."
+    },
+    "vendor_status": "Registry and vendor-risk service are consistent (both indicate approved status as of 2026-03-02).",
+    "data_sensitivity": "The request involves customer PII and integration with HelpDeskly, triggering mandatory Security and Privacy reviews.",
+    "unverified_or_missing": [
+      "Confirmation if 'NeuralDesk Support Assistant' is covered under the existing 'NeuralDesk Business' enterprise agreement.",
+      "Specific data-handling practices for the requested integration with HelpDeskly."
+    ],
+    "untrusted_content_concerns": []
+  },
+  "tool_calls": [
+    {
+      "name": "get_request_details",
+      "arguments": {},
+      "latency_ms": 15.2
+    },
+    {
+      "name": "check_budget",
+      "arguments": {
+        "annual_cost_usd": 6000,
+        "department": "Customer Success"
+      },
+      "latency_ms": 2.8
+    },
+    {
+      "name": "search_software_catalog",
+      "arguments": {
+        "category": "General AI",
+        "vendor_name": "NeuralDesk",
+        "product_name": "NeuralDesk Support Assistant"
+      },
+      "latency_ms": 11.7
+    },
+    {
+      "name": "get_vendor_registry",
+      "arguments": {
+        "vendor_name": "NeuralDesk"
+      },
+      "latency_ms": 3.4
+    },
+    {
+      "name": "get_vendor_risk",
+      "arguments": {
+        "vendor_name": "NeuralDesk"
+      },
+      "latency_ms": 8.9
+    },
+    {
+      "name": "run_policy_checks",
+      "arguments": {},
+      "latency_ms": 17.9
+    }
+  ],
+  "error": null,
+  "latency_ms": 22531.9
+}

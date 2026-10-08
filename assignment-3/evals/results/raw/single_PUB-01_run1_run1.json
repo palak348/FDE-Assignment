@@ -1,0 +1,178 @@
+{
+  "case": {
+    "case_id": "PUB-01",
+    "request_id": "REQ-1001",
+    "edge_case": "baseline",
+    "title": "Low-value approved vendor",
+    "expectations": {
+      "approvals_all": [
+        "Manager"
+      ],
+      "approvals_none": [
+        "Finance",
+        "CFO",
+        "Security",
+        "Legal",
+        "Privacy"
+      ],
+      "flags_none": [
+        "budget_insufficient",
+        "vendor_risk_unavailable",
+        "security_review_required",
+        "prompt_injection_detected"
+      ],
+      "max_missing_information": 0,
+      "acceptable_next_actions": [
+        "route_for_approval",
+        "reuse_existing"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-1001",
+    "recommendation": "The request for additional SignFlow identities is within budget and the vendor is already approved. However, since the company already has an existing, company-wide SignFlow license, please verify if the requested 'add-on' is necessary or if existing unused seats can be utilized.",
+    "evidence": [
+      {
+        "source": "search_software_catalog",
+        "finding": "An existing company-wide SignFlow license (SW010) is already approved and available to the Finance department.",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "The request is within the $1,000 approval threshold, requiring only Manager approval.",
+        "reference": "procurement_policy.md"
+      },
+      {
+        "source": "check_budget",
+        "finding": "The $800 request is within the Finance department's available budget of $29,000.",
+        "reference": "department_budgets.csv/Finance"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier <= $1,000: $800.00 is up to $1,000 -> minimum approvals Manager",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Finance): $800 requested vs $29,000 available",
+        "reference": "department_budgets.csv/Finance; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service: status 'approved', last review 2026-06-20, risk low, personal data=True, outside region=False; registry: 'Approved' (2026-06-20), new vendor=False, legal terms 'Approved'",
+        "reference": "vendor-risk API + vendors.csv; Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Existing approved software overlaps: SignFlow (E-signature, 45 seats, scope Company-wide)",
+        "reference": "software_catalog.csv; Policy section 3"
+      }
+    ],
+    "required_approvals": [
+      "Manager"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "next_step": "Confirm with the requester if they have checked for available seats on the existing company-wide SignFlow license before proceeding with a new purchase.",
+    "human_review_required": true,
+    "next_action": "reuse_existing",
+    "telemetry": {
+      "llm_calls": 2,
+      "tool_calls": 6,
+      "tool_names": [
+        "get_request_details",
+        "check_budget",
+        "search_software_catalog",
+        "get_vendor_registry",
+        "get_vendor_risk",
+        "run_policy_checks"
+      ],
+      "architecture": "single",
+      "model": "gemini-3.1-flash-lite",
+      "prompt_tokens": 6474,
+      "completion_tokens": 518,
+      "llm_latency_ms": 9931.5,
+      "guardrail_corrections": [],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": null
+    }
+  },
+  "raw_llm_decision": {
+    "recommendation": "The request for additional SignFlow identities is within budget and the vendor is already approved. However, since the company already has an existing, company-wide SignFlow license, please verify if the requested 'add-on' is necessary or if existing unused seats can be utilized.",
+    "next_action": "reuse_existing",
+    "evidence": [
+      {
+        "source": "search_software_catalog",
+        "finding": "An existing company-wide SignFlow license (SW010) is already approved and available to the Finance department.",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "The request is within the $1,000 approval threshold, requiring only Manager approval.",
+        "reference": "procurement_policy.md"
+      },
+      {
+        "source": "check_budget",
+        "finding": "The $800 request is within the Finance department's available budget of $29,000.",
+        "reference": "department_budgets.csv/Finance"
+      }
+    ],
+    "required_approvals": [
+      "Manager"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "next_step": "Confirm with the requester if they have checked for available seats on the existing company-wide SignFlow license before proceeding with a new purchase.",
+    "rationale": "The company already has an active, company-wide contract with SignFlow. Before purchasing additional identities, the requester should confirm if existing capacity can be utilized to avoid redundant spend."
+  },
+  "evidence_pack": null,
+  "tool_calls": [
+    {
+      "name": "get_request_details",
+      "arguments": {},
+      "latency_ms": 10.4
+    },
+    {
+      "name": "check_budget",
+      "arguments": {
+        "department": "Finance",
+        "annual_cost_usd": 800
+      },
+      "latency_ms": 2.6
+    },
+    {
+      "name": "search_software_catalog",
+      "arguments": {
+        "product_name": "SignFlow Add-on",
+        "category": "E-signature",
+        "vendor_name": "SignFlow"
+      },
+      "latency_ms": 8.6
+    },
+    {
+      "name": "get_vendor_registry",
+      "arguments": {
+        "vendor_name": "SignFlow"
+      },
+      "latency_ms": 2.5
+    },
+    {
+      "name": "get_vendor_risk",
+      "arguments": {
+        "vendor_name": "SignFlow"
+      },
+      "latency_ms": 2810.4
+    },
+    {
+      "name": "run_policy_checks",
+      "arguments": {},
+      "latency_ms": 20.0
+    }
+  ],
+  "error": null,
+  "latency_ms": 14028.0
+}

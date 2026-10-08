@@ -1,0 +1,213 @@
+{
+  "case": {
+    "case_id": "EXT-11",
+    "request_id": "REQ-9007",
+    "edge_case": "approval threshold (CFO) + budget",
+    "title": "$40k upgrade above budget with source-code access",
+    "expectations": {
+      "approvals_all": [
+        "Department Head",
+        "Finance",
+        "CFO",
+        "Procurement",
+        "Security"
+      ],
+      "flags_all": [
+        "budget_insufficient",
+        "security_review_required"
+      ],
+      "flags_none": [
+        "vendor_risk_unavailable"
+      ],
+      "max_missing_information": 0,
+      "acceptable_next_actions": [
+        "route_for_approval",
+        "manual_review"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-9007",
+    "recommendation": "The request for CodeMate Enterprise Upgrade exceeds the available department budget and overlaps with an existing approved CodeMate subscription. I recommend routing this for budget exception review and verifying if the existing 120-seat license can be upgraded or reconfigured to meet the new requirements.",
+    "evidence": [
+      {
+        "source": "check_budget",
+        "finding": "Engineering department has a $14,000 budget shortfall for this request ($40,000 requested vs $26,000 available).",
+        "reference": "department_budgets.csv/Engineering"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "An existing CodeMate subscription (SW008) is already approved for Engineering with 120 licensed seats.",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Request requires Department Head, Procurement, Finance, CFO, and Security approvals due to cost and data access level.",
+        "reference": "procurement_policy.md"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Vendor CodeMate is approved with current security and legal status.",
+        "reference": "vendors.csv/V008"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier > $25,000: $40,000.00 is above $25,000 -> minimum approvals Department Head, Finance, CFO, Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Engineering): $40,000 requested vs $26,000 available (shortfall $14,000)",
+        "reference": "department_budgets.csv/Engineering; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service: status 'approved', last review 2026-08-20, risk medium, personal data=False, outside region=False; registry: 'Approved' (2026-08-20), new vendor=False, legal terms 'Approved'",
+        "reference": "vendor-risk API + vendors.csv; Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Finance review required: Budget exception: $40,000 requested vs $26,000 available (shortfall $14,000)",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Data access level 'source_code' (source code access)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Integration 'Git repositories' (source-code repository integration)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Existing approved software overlaps: CodeMate (Developer AI, 120 seats, scope Engineering)",
+        "reference": "software_catalog.csv; Policy section 3"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance",
+      "CFO",
+      "Security"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "budget_insufficient",
+      "security_review_required",
+      "existing_tool_overlap"
+    ],
+    "next_step": "Route to Finance for budget exception review and consult with the Engineering manager to determine if the existing CodeMate license can be upgraded instead of purchasing a new enterprise tier.",
+    "human_review_required": true,
+    "next_action": "manual_review",
+    "telemetry": {
+      "llm_calls": 2,
+      "tool_calls": 6,
+      "tool_names": [
+        "get_request_details",
+        "check_budget",
+        "search_software_catalog",
+        "get_vendor_registry",
+        "get_vendor_risk",
+        "run_policy_checks"
+      ],
+      "architecture": "single",
+      "model": "gemini-3.1-flash-lite",
+      "prompt_tokens": 6731,
+      "completion_tokens": 565,
+      "llm_latency_ms": 5535.1,
+      "guardrail_corrections": [],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": null
+    }
+  },
+  "raw_llm_decision": {
+    "recommendation": "The request for CodeMate Enterprise Upgrade exceeds the available department budget and overlaps with an existing approved CodeMate subscription. I recommend routing this for budget exception review and verifying if the existing 120-seat license can be upgraded or reconfigured to meet the new requirements.",
+    "next_action": "manual_review",
+    "evidence": [
+      {
+        "source": "check_budget",
+        "finding": "Engineering department has a $14,000 budget shortfall for this request ($40,000 requested vs $26,000 available).",
+        "reference": "department_budgets.csv/Engineering"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "An existing CodeMate subscription (SW008) is already approved for Engineering with 120 licensed seats.",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Request requires Department Head, Procurement, Finance, CFO, and Security approvals due to cost and data access level.",
+        "reference": "procurement_policy.md"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Vendor CodeMate is approved with current security and legal status.",
+        "reference": "vendors.csv/V008"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance",
+      "CFO",
+      "Security"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "budget_insufficient",
+      "security_review_required",
+      "existing_tool_overlap"
+    ],
+    "next_step": "Route to Finance for budget exception review and consult with the Engineering manager to determine if the existing CodeMate license can be upgraded instead of purchasing a new enterprise tier.",
+    "rationale": "The request is over budget and duplicates an existing vendor/tool. While the vendor is approved, the cost and data access (source code) necessitate high-level financial and security oversight."
+  },
+  "evidence_pack": null,
+  "tool_calls": [
+    {
+      "name": "get_request_details",
+      "arguments": {},
+      "latency_ms": 9.7
+    },
+    {
+      "name": "check_budget",
+      "arguments": {
+        "department": "Engineering",
+        "annual_cost_usd": 40000
+      },
+      "latency_ms": 1.8
+    },
+    {
+      "name": "search_software_catalog",
+      "arguments": {
+        "product_name": "CodeMate Enterprise Upgrade",
+        "category": "Developer AI",
+        "vendor_name": "CodeMate"
+      },
+      "latency_ms": 6.7
+    },
+    {
+      "name": "get_vendor_registry",
+      "arguments": {
+        "vendor_name": "CodeMate"
+      },
+      "latency_ms": 2.3
+    },
+    {
+      "name": "get_vendor_risk",
+      "arguments": {
+        "vendor_name": "CodeMate"
+      },
+      "latency_ms": 18.6
+    },
+    {
+      "name": "run_policy_checks",
+      "arguments": {},
+      "latency_ms": 36.8
+    }
+  ],
+  "error": null,
+  "latency_ms": 8194.9
+}

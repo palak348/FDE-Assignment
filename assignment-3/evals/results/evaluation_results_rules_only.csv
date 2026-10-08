@@ -1,0 +1,18 @@
+case_id,architecture,correct_next_action,grounded_evidence,policy_followed,human_escalation_correct,latency_ms,llm_calls,tool_calls,notes
+PUB-01,rules,False,True,True,False,2827.4,0,1,"run 1; next_action manual_review not in ['route_for_approval', 'reuse_existing']"
+PUB-02,rules,True,True,True,True,38.3,0,1,run 1; all checks passed
+PUB-03,rules,True,True,True,True,36.4,0,1,run 1; all checks passed
+PUB-04,rules,True,True,True,True,32.0,0,1,run 1; all checks passed
+PUB-05,rules,True,True,True,True,34.5,0,1,run 1; all checks passed
+PUB-06,rules,True,True,True,True,32.9,0,1,run 1; all checks passed
+EXT-01,rules,True,True,True,True,30.6,0,1,run 1; all checks passed
+EXT-02,rules,True,True,True,True,41.6,0,1,run 1; all checks passed
+EXT-03,rules,False,True,True,False,44.6,0,1,run 1; next_action manual_review not in ['reuse_existing']
+EXT-04,rules,False,True,True,False,32.2,0,1,run 1; next_action manual_review not in ['route_for_approval']
+EXT-05,rules,True,True,True,True,40.0,0,1,run 1; all checks passed
+EXT-06,rules,False,True,True,False,30.1,0,1,run 1; next_action manual_review not in ['route_for_approval']
+EXT-07,rules,True,True,True,True,32.9,0,1,run 1; all checks passed
+EXT-08,rules,True,True,True,True,30.1,0,1,run 1; all checks passed
+EXT-09,rules,False,True,True,False,30.1,0,1,"run 1; next_action manual_review not in ['route_for_approval', 'reuse_existing']"
+EXT-10,rules,True,True,True,True,19.3,0,1,run 1; all checks passed
+EXT-11,rules,True,True,True,True,29.9,0,1,run 1; all checks passed

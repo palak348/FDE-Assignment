@@ -7,6 +7,7 @@
 | Assignment | Topic | Contents |
 |---|---|---|
 | [Assignment 2](assignment-2/) | Data Foundations (Classes 4–8) | A repeatable pipeline from raw NYC taxi data to a business KPI: did congestion pricing make Manhattan taxis faster? Includes the [2-page report](assignment-2/10504_PALAK_AGRAWAL.pdf). |
+| [Assignment 3](assignment-3/) | AI Procurement Request Copilot | An AI copilot that gathers evidence with tools, applies procurement rules in code and keeps approvals with humans. Compares a single agent with a staged two-agent design on the same test set ([decision memo](assignment-3/docs/decision_memo.md)). |
 
 ## In-class challenge notebooks
 
@@ -22,6 +23,7 @@ Completed FlashEats challenge notebooks from the in-class sessions, with their d
 
 ```
 ├── assignment-2/        NYC congestion pricing KPI pipeline, report and documentation
+├── assignment-3/        AI procurement copilot: two agent architectures, evaluation and decision memo
 └── class_notebooks/     completed FlashEats challenge notebooks (Classes 5–7) with their data
 ```
 

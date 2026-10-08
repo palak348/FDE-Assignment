@@ -1,0 +1,192 @@
+{
+  "case": {
+    "case_id": "EXT-04",
+    "request_id": "REQ-1010",
+    "edge_case": "baseline (low value)",
+    "title": "Sub-$1k training pack from approved vendor",
+    "expectations": {
+      "approvals_all": [
+        "Manager"
+      ],
+      "approvals_none": [
+        "Finance",
+        "CFO",
+        "Security",
+        "Legal",
+        "Privacy"
+      ],
+      "flags_none": [
+        "budget_insufficient",
+        "security_review_required",
+        "legal_review_required",
+        "vendor_risk_unavailable"
+      ],
+      "max_missing_information": 0,
+      "acceptable_next_actions": [
+        "route_for_approval"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-1010",
+    "recommendation": "The request for a SignFlow training package is within budget and the vendor is already approved. Since the company already has a company-wide agreement for SignFlow, please confirm if this training is included in the existing contract or if it requires a separate purchase.",
+    "evidence": [
+      {
+        "source": "run_policy_checks",
+        "finding": "The request is within the $1,000 threshold, requiring only Manager approval.",
+        "reference": "procurement_policy.md"
+      },
+      {
+        "source": "check_budget",
+        "finding": "The request is within the Finance department's available software budget.",
+        "reference": "department_budgets.csv/Finance"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "SignFlow is an existing approved vendor with a company-wide agreement.",
+        "reference": "software_catalog.csv + purchase_history.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "SignFlow is an approved vendor with current security and legal status.",
+        "reference": "vendors.csv/V010"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor risk is low and security review is current (2026-06-20).",
+        "reference": "GET /vendor-risk/SignFlow"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier <= $1,000: $950.00 is up to $1,000 -> minimum approvals Manager",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Finance): $950 requested vs $29,000 available",
+        "reference": "department_budgets.csv/Finance; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service: status 'approved', last review 2026-06-20, risk low, personal data=True, outside region=False; registry: 'Approved' (2026-06-20), new vendor=False, legal terms 'Approved'",
+        "reference": "vendor-risk API + vendors.csv; Policy section 5"
+      }
+    ],
+    "required_approvals": [
+      "Manager"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "next_step": "Route to Priya Shah (Director, Finance) for approval, noting the existing company-wide agreement with SignFlow.",
+    "human_review_required": true,
+    "next_action": "route_for_approval",
+    "telemetry": {
+      "llm_calls": 2,
+      "tool_calls": 6,
+      "tool_names": [
+        "get_request_details",
+        "check_budget",
+        "search_software_catalog",
+        "get_vendor_registry",
+        "get_vendor_risk",
+        "run_policy_checks"
+      ],
+      "architecture": "single",
+      "model": "gemini-3.1-flash-lite",
+      "prompt_tokens": 6441,
+      "completion_tokens": 550,
+      "llm_latency_ms": 4583.7,
+      "guardrail_corrections": [],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": null
+    }
+  },
+  "raw_llm_decision": {
+    "recommendation": "The request for a SignFlow training package is within budget and the vendor is already approved. Since the company already has a company-wide agreement for SignFlow, please confirm if this training is included in the existing contract or if it requires a separate purchase.",
+    "next_action": "route_for_approval",
+    "evidence": [
+      {
+        "source": "run_policy_checks",
+        "finding": "The request is within the $1,000 threshold, requiring only Manager approval.",
+        "reference": "procurement_policy.md"
+      },
+      {
+        "source": "check_budget",
+        "finding": "The request is within the Finance department's available software budget.",
+        "reference": "department_budgets.csv/Finance"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "SignFlow is an existing approved vendor with a company-wide agreement.",
+        "reference": "software_catalog.csv + purchase_history.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "SignFlow is an approved vendor with current security and legal status.",
+        "reference": "vendors.csv/V010"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor risk is low and security review is current (2026-06-20).",
+        "reference": "GET /vendor-risk/SignFlow"
+      }
+    ],
+    "required_approvals": [
+      "Manager"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "next_step": "Route to Priya Shah (Director, Finance) for approval, noting the existing company-wide agreement with SignFlow.",
+    "rationale": "The request meets all policy requirements and is within budget. While there is an existing company-wide agreement for the vendor (SignFlow), the training pack is a specific service request that requires manager approval."
+  },
+  "evidence_pack": null,
+  "tool_calls": [
+    {
+      "name": "get_request_details",
+      "arguments": {},
+      "latency_ms": 14.0
+    },
+    {
+      "name": "check_budget",
+      "arguments": {
+        "annual_cost_usd": 950,
+        "department": "Finance"
+      },
+      "latency_ms": 2.6
+    },
+    {
+      "name": "search_software_catalog",
+      "arguments": {
+        "category": "Professional Services",
+        "product_name": "SignFlow Training Pack",
+        "vendor_name": "SignFlow"
+      },
+      "latency_ms": 9.1
+    },
+    {
+      "name": "get_vendor_registry",
+      "arguments": {
+        "vendor_name": "SignFlow"
+      },
+      "latency_ms": 3.0
+    },
+    {
+      "name": "get_vendor_risk",
+      "arguments": {
+        "vendor_name": "SignFlow"
+      },
+      "latency_ms": 10.0
+    },
+    {
+      "name": "run_policy_checks",
+      "arguments": {},
+      "latency_ms": 19.5
+    }
+  ],
+  "error": null,
+  "latency_ms": 4647.1
+}

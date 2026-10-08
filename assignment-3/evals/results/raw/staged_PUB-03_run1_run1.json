@@ -1,0 +1,256 @@
+{
+  "case": {
+    "case_id": "PUB-03",
+    "request_id": "REQ-1003",
+    "edge_case": "security-sensitive",
+    "title": "Sensitive source-code access",
+    "expectations": {
+      "approvals_all": [
+        "Department Head",
+        "Finance",
+        "Procurement",
+        "Security"
+      ],
+      "approvals_none": [
+        "CFO"
+      ],
+      "flags_all": [
+        "security_review_required"
+      ],
+      "flags_none": [
+        "budget_insufficient",
+        "vendor_risk_unavailable",
+        "vendor_review_expired"
+      ],
+      "max_missing_information": 0,
+      "acceptable_next_actions": [
+        "route_for_approval",
+        "manual_review"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-1003",
+    "recommendation": "The request for additional CodeMate licenses is within budget and aligns with an existing approved tool. As the tool requires access to source code and Git repositories, it must proceed through the required security and financial approval workflows.",
+    "evidence": [
+      {
+        "source": "get_request_details",
+        "finding": "Request for 30 additional seats of CodeMate for Engineering department, $18,000 annual cost, accessing source code and Git repositories.",
+        "reference": "requests/REQ-1003"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Request is within the Engineering department's available software budget ($18,000 requested vs $26,000 available).",
+        "reference": "department_budgets.csv/Engineering"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "CodeMate is an existing approved tool (SW008) currently used by Engineering.",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "CodeMate is approved for procurement, security, and legal terms as of 2026-08-20.",
+        "reference": "vendors.csv/V008"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review triggered due to source code access and Git repository integration.",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier $10,000.01 - $25,000: $18,000.00 is between $10,000.01 and $25,000 -> minimum approvals Department Head, Finance, Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Engineering): $18,000 requested vs $26,000 available",
+        "reference": "department_budgets.csv/Engineering; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service: status 'approved', last review 2026-08-20, risk medium, personal data=False, outside region=False; registry: 'Approved' (2026-08-20), new vendor=False, legal terms 'Approved'",
+        "reference": "vendor-risk API + vendors.csv; Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Data access level 'source_code' (source code access)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Integration 'Git repositories' (source-code repository integration)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Existing approved software overlaps: CodeMate (Developer AI, 120 seats, scope Engineering)",
+        "reference": "software_catalog.csv; Policy section 3"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance",
+      "Security"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "security_review_required",
+      "existing_tool_overlap"
+    ],
+    "next_step": "Route the request to the Department Head, Finance, Procurement, and Security teams for formal approval.",
+    "human_review_required": true,
+    "next_action": "route_for_approval",
+    "telemetry": {
+      "llm_calls": 3,
+      "tool_calls": 6,
+      "tool_names": [
+        "get_request_details",
+        "check_budget",
+        "search_software_catalog",
+        "get_vendor_registry",
+        "get_vendor_risk",
+        "run_policy_checks"
+      ],
+      "architecture": "staged",
+      "model": "gemini-3.1-flash-lite",
+      "prompt_tokens": 9793,
+      "completion_tokens": 1161,
+      "llm_latency_ms": 8764.4,
+      "guardrail_corrections": [],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": null
+    }
+  },
+  "raw_llm_decision": {
+    "recommendation": "The request for additional CodeMate licenses is within budget and aligns with an existing approved tool. As the tool requires access to source code and Git repositories, it must proceed through the required security and financial approval workflows.",
+    "next_action": "route_for_approval",
+    "evidence": [
+      {
+        "source": "get_request_details",
+        "finding": "Request for 30 additional seats of CodeMate for Engineering department, $18,000 annual cost, accessing source code and Git repositories.",
+        "reference": "requests/REQ-1003"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Request is within the Engineering department's available software budget ($18,000 requested vs $26,000 available).",
+        "reference": "department_budgets.csv/Engineering"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "CodeMate is an existing approved tool (SW008) currently used by Engineering.",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "CodeMate is approved for procurement, security, and legal terms as of 2026-08-20.",
+        "reference": "vendors.csv/V008"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review triggered due to source code access and Git repository integration.",
+        "reference": "Policy section 5"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance",
+      "Security"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "security_review_required",
+      "existing_tool_overlap"
+    ],
+    "next_step": "Route the request to the Department Head, Finance, Procurement, and Security teams for formal approval.",
+    "rationale": "The request is for an expansion of an existing, approved tool. While budget is sufficient, the high-sensitivity data access (source code) necessitates a formal security review alongside the standard financial and procurement approvals required for this spend tier."
+  },
+  "evidence_pack": {
+    "need_summary": "The requester is seeking to expand the existing 'CodeMate' license by 30 seats to support two additional engineering squads.",
+    "facts": [
+      {
+        "source": "get_request_details",
+        "finding": "Request for 30 additional seats of CodeMate for Engineering department, $18,000 annual cost, accessing source code and Git repositories.",
+        "reference": "requests/REQ-1003"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Request is within the Engineering department's available software budget ($18,000 requested vs $26,000 available).",
+        "reference": "department_budgets.csv/Engineering"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "CodeMate is an existing approved tool (SW008) currently used by Engineering.",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "CodeMate is approved for procurement, security, and legal terms as of 2026-08-20.",
+        "reference": "vendors.csv/V008"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor risk level is medium; security review status is approved as of 2026-08-20.",
+        "reference": "GET /vendor-risk/CodeMate"
+      }
+    ],
+    "existing_tools": {
+      "candidates": [
+        "CodeMate (SW008)"
+      ],
+      "credible_gap": "The request is for an expansion of an existing, approved tool already in use by the department."
+    },
+    "vendor_status": "Registry and vendor-risk service are in agreement; both confirm the vendor is approved and the security review is current (2026-08-20).",
+    "data_sensitivity": "High: The tool requires access to source code and Git repositories.",
+    "unverified_or_missing": [],
+    "untrusted_content_concerns": []
+  },
+  "tool_calls": [
+    {
+      "name": "get_request_details",
+      "arguments": {},
+      "latency_ms": 12.8
+    },
+    {
+      "name": "check_budget",
+      "arguments": {
+        "annual_cost_usd": 18000,
+        "department": "Engineering"
+      },
+      "latency_ms": 3.2
+    },
+    {
+      "name": "search_software_catalog",
+      "arguments": {
+        "product_name": "CodeMate Teams Expansion",
+        "category": "Developer AI",
+        "vendor_name": "CodeMate"
+      },
+      "latency_ms": 11.0
+    },
+    {
+      "name": "get_vendor_registry",
+      "arguments": {
+        "vendor_name": "CodeMate"
+      },
+      "latency_ms": 3.0
+    },
+    {
+      "name": "get_vendor_risk",
+      "arguments": {
+        "vendor_name": "CodeMate"
+      },
+      "latency_ms": 9.3
+    },
+    {
+      "name": "run_policy_checks",
+      "arguments": {},
+      "latency_ms": 20.5
+    }
+  ],
+  "error": null,
+  "latency_ms": 8845.9
+}

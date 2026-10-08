@@ -1,0 +1,223 @@
+{
+  "case": {
+    "case_id": "EXT-01",
+    "request_id": "REQ-1004",
+    "edge_case": "security-sensitive AI tool",
+    "title": "Limited-use AI tool with customer PII, data outside region",
+    "expectations": {
+      "approvals_all": [
+        "Department Head",
+        "Procurement",
+        "Security",
+        "Privacy"
+      ],
+      "approvals_none": [
+        "CFO"
+      ],
+      "flags_all": [
+        "security_review_required",
+        "privacy_review_required"
+      ],
+      "flags_none": [
+        "budget_insufficient",
+        "vendor_risk_unavailable"
+      ],
+      "max_missing_information": 0,
+      "acceptable_next_actions": [
+        "route_for_approval",
+        "manual_review"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-1004",
+    "recommendation": "The request is within budget, but requires Security, Privacy, and Legal reviews due to the handling of customer PII and cross-region data storage. Additionally, an existing company-wide license for 'NeuralDesk Business' should be evaluated to see if it meets the team's needs before proceeding with a new purchase.",
+    "evidence": [
+      {
+        "source": "check_budget",
+        "finding": "Request is within the Customer Success department's available budget ($6,000 requested vs $7,000 available).",
+        "reference": "department_budgets.csv/Customer Success"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "An existing company-wide license for 'NeuralDesk Business' (SW009) is available.",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security, Privacy, and Legal reviews are triggered by the handling of customer PII and cross-region data storage.",
+        "reference": "procurement_policy.md"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor stores data outside the operating region and processes personal data.",
+        "reference": "GET /vendor-risk/NeuralDesk"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier $1,000.01 - $10,000: $6,000.00 is between $1,000.01 and $10,000 -> minimum approvals Department Head, Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Customer Success): $6,000 requested vs $7,000 available",
+        "reference": "department_budgets.csv/Customer Success; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service: status 'approved', last review 2026-03-02, risk medium, personal data=True, outside region=True; registry: 'Approved' (2026-03-02), new vendor=False, legal terms 'Approved'",
+        "reference": "vendor-risk API + vendors.csv; Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Data access level 'customer_pii' (customer PII)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Privacy review required: Tool will process customer PII",
+        "reference": "Policy section 6"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Privacy review required: Vendor stores data outside the operating region and data is sensitive",
+        "reference": "Policy section 6"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Legal review required: Cross-region processing of personal data",
+        "reference": "Policy section 7"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Existing approved software overlaps: NeuralDesk Business (General AI, 150 seats, scope Company-wide)",
+        "reference": "software_catalog.csv; Policy section 3"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Security",
+      "Privacy",
+      "Legal"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "security_review_required",
+      "privacy_review_required",
+      "legal_review_required",
+      "existing_tool_overlap"
+    ],
+    "next_step": "Confirm with the requester if the existing 'NeuralDesk Business' license (SW009) can satisfy their requirements; if not, route the request to Security, Privacy, and Legal for mandatory reviews.",
+    "human_review_required": true,
+    "next_action": "manual_review",
+    "telemetry": {
+      "llm_calls": 2,
+      "tool_calls": 6,
+      "tool_names": [
+        "get_request_details",
+        "check_budget",
+        "search_software_catalog",
+        "get_vendor_registry",
+        "get_vendor_risk",
+        "run_policy_checks"
+      ],
+      "architecture": "single",
+      "model": "gemini-3.1-flash-lite",
+      "prompt_tokens": 6738,
+      "completion_tokens": 624,
+      "llm_latency_ms": 10036.7,
+      "guardrail_corrections": [],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": null
+    }
+  },
+  "raw_llm_decision": {
+    "recommendation": "The request is within budget, but requires Security, Privacy, and Legal reviews due to the handling of customer PII and cross-region data storage. Additionally, an existing company-wide license for 'NeuralDesk Business' should be evaluated to see if it meets the team's needs before proceeding with a new purchase.",
+    "next_action": "manual_review",
+    "evidence": [
+      {
+        "source": "check_budget",
+        "finding": "Request is within the Customer Success department's available budget ($6,000 requested vs $7,000 available).",
+        "reference": "department_budgets.csv/Customer Success"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "An existing company-wide license for 'NeuralDesk Business' (SW009) is available.",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security, Privacy, and Legal reviews are triggered by the handling of customer PII and cross-region data storage.",
+        "reference": "procurement_policy.md"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor stores data outside the operating region and processes personal data.",
+        "reference": "GET /vendor-risk/NeuralDesk"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Security",
+      "Privacy",
+      "Legal"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "security_review_required",
+      "privacy_review_required",
+      "legal_review_required",
+      "existing_tool_overlap"
+    ],
+    "next_step": "Confirm with the requester if the existing 'NeuralDesk Business' license (SW009) can satisfy their requirements; if not, route the request to Security, Privacy, and Legal for mandatory reviews.",
+    "rationale": "While the budget is sufficient, the request involves sensitive data (customer PII) and cross-region storage, necessitating mandatory compliance reviews. Furthermore, the existence of a company-wide license for the same vendor suggests a potential for consolidation rather than a new purchase."
+  },
+  "evidence_pack": null,
+  "tool_calls": [
+    {
+      "name": "get_request_details",
+      "arguments": {},
+      "latency_ms": 10.7
+    },
+    {
+      "name": "check_budget",
+      "arguments": {
+        "annual_cost_usd": 6000,
+        "department": "Customer Success"
+      },
+      "latency_ms": 2.6
+    },
+    {
+      "name": "search_software_catalog",
+      "arguments": {
+        "category": "General AI",
+        "vendor_name": "NeuralDesk",
+        "product_name": "NeuralDesk Support Assistant"
+      },
+      "latency_ms": 9.5
+    },
+    {
+      "name": "get_vendor_registry",
+      "arguments": {
+        "vendor_name": "NeuralDesk"
+      },
+      "latency_ms": 2.8
+    },
+    {
+      "name": "get_vendor_risk",
+      "arguments": {
+        "vendor_name": "NeuralDesk"
+      },
+      "latency_ms": 9.5
+    },
+    {
+      "name": "run_policy_checks",
+      "arguments": {},
+      "latency_ms": 18.3
+    }
+  ],
+  "error": null,
+  "latency_ms": 18015.7
+}

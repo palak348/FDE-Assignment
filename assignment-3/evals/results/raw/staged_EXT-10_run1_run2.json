@@ -1,0 +1,281 @@
+{
+  "case": {
+    "case_id": "EXT-10",
+    "request_id": "REQ-9006",
+    "edge_case": "incomplete / ambiguous",
+    "title": "Vague request with no vendor, users or purpose",
+    "expectations": {
+      "flags_all": [
+        "missing_information"
+      ],
+      "missing_any_groups": [
+        [
+          "user",
+          "seat",
+          "licen"
+        ],
+        [
+          "data"
+        ],
+        [
+          "vendor",
+          "product"
+        ],
+        [
+          "purpose",
+          "justification"
+        ]
+      ],
+      "acceptable_next_actions": [
+        "request_info"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-9006",
+    "recommendation": "The request is incomplete and lacks essential details, including the vendor name and business justification. I recommend requesting this information from the user and directing them to the existing approved tool, NeuralDesk Business, to see if it meets their needs.",
+    "evidence": [
+      {
+        "source": "get_request_details",
+        "finding": "Request REQ-9006 is for an 'AI tool' with no vendor specified, no business justification, no user count, and unknown data access level.",
+        "reference": "requests/REQ-9006"
+      },
+      {
+        "source": "check_budget",
+        "finding": "The requested $500 is within the Sales department's available software budget of $18,000.",
+        "reference": "department_budgets.csv/Sales"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "NeuralDesk Business is an approved 'General AI' tool available to the requester.",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "No internal registry record for '' (treat as new vendor)",
+        "reference": "vendors.csv"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor risk status could not be verified because no vendor name was provided.",
+        "reference": "GET /vendor-risk/"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier <= $1,000: $500.00 is up to $1,000 -> minimum approvals Manager",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Sales): $500 requested vs $18,000 available",
+        "reference": "department_budgets.csv/Sales; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service could not verify status (bad_request: No vendor name supplied)",
+        "reference": "Policy sections 5, 10"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Vendor security status could not be verified (service unavailable)",
+        "reference": "Policy sections 5, 10"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Legal review required: Legal terms not approved/standard (status 'unknown')",
+        "reference": "Policy section 7"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Existing approved software overlaps: NeuralDesk Business (General AI, 150 seats, scope Company-wide)",
+        "reference": "software_catalog.csv; Policy section 3"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Missing required information: product / vendor, number of users / licenses, business purpose, intended data access level",
+        "reference": "Policy section 1"
+      }
+    ],
+    "required_approvals": [
+      "Manager",
+      "Security",
+      "Legal"
+    ],
+    "missing_information": [
+      "product / vendor",
+      "number of users / licenses",
+      "business purpose",
+      "intended data access level"
+    ],
+    "risk_flags": [
+      "security_review_required",
+      "legal_review_required",
+      "vendor_risk_unavailable",
+      "existing_tool_overlap",
+      "missing_information"
+    ],
+    "next_step": "Contact the requester to obtain the missing vendor name, business justification, and data access requirements, and suggest evaluating NeuralDesk Business as an alternative.",
+    "human_review_required": true,
+    "next_action": "request_info",
+    "telemetry": {
+      "llm_calls": 3,
+      "tool_calls": 6,
+      "tool_names": [
+        "get_request_details",
+        "check_budget",
+        "search_software_catalog",
+        "get_vendor_registry",
+        "get_vendor_risk",
+        "run_policy_checks"
+      ],
+      "architecture": "staged",
+      "model": "gemini-3.1-flash-lite",
+      "prompt_tokens": 9226,
+      "completion_tokens": 1139,
+      "llm_latency_ms": 8071.8,
+      "guardrail_corrections": [],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": null
+    }
+  },
+  "raw_llm_decision": {
+    "recommendation": "The request is incomplete and lacks essential details, including the vendor name and business justification. I recommend requesting this information from the user and directing them to the existing approved tool, NeuralDesk Business, to see if it meets their needs.",
+    "next_action": "request_info",
+    "evidence": [
+      {
+        "source": "get_request_details",
+        "finding": "Request REQ-9006 is for an 'AI tool' with no vendor specified, no business justification, no user count, and unknown data access level.",
+        "reference": "requests/REQ-9006"
+      },
+      {
+        "source": "check_budget",
+        "finding": "The requested $500 is within the Sales department's available software budget of $18,000.",
+        "reference": "department_budgets.csv/Sales"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "NeuralDesk Business is an approved 'General AI' tool available to the requester.",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "No internal registry record for '' (treat as new vendor)",
+        "reference": "vendors.csv"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor risk status could not be verified because no vendor name was provided.",
+        "reference": "GET /vendor-risk/"
+      }
+    ],
+    "required_approvals": [
+      "Manager",
+      "Security",
+      "Legal"
+    ],
+    "missing_information": [
+      "product / vendor",
+      "number of users / licenses",
+      "business purpose",
+      "intended data access level"
+    ],
+    "risk_flags": [
+      "security_review_required",
+      "legal_review_required",
+      "vendor_risk_unavailable",
+      "existing_tool_overlap",
+      "missing_information"
+    ],
+    "next_step": "Contact the requester to obtain the missing vendor name, business justification, and data access requirements, and suggest evaluating NeuralDesk Business as an alternative.",
+    "rationale": "The request is missing critical information required by policy. Additionally, an existing approved tool (NeuralDesk Business) exists in the same category, which must be evaluated before considering a new vendor."
+  },
+  "evidence_pack": {
+    "need_summary": "The requester is seeking to purchase an unspecified 'AI tool' for the Sales department.",
+    "facts": [
+      {
+        "source": "get_request_details",
+        "finding": "Request REQ-9006 is for an 'AI tool' with no vendor specified, no business justification, no user count, and unknown data access level.",
+        "reference": "requests/REQ-9006"
+      },
+      {
+        "source": "check_budget",
+        "finding": "The requested $500 is within the Sales department's available software budget of $18,000.",
+        "reference": "department_budgets.csv/Sales"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "NeuralDesk Business is an approved 'General AI' tool available to the requester.",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "No vendor name was provided in the request; therefore, no registry record exists.",
+        "reference": "vendors.csv"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor risk status could not be verified because no vendor name was provided.",
+        "reference": "GET /vendor-risk/"
+      }
+    ],
+    "existing_tools": {
+      "candidates": [
+        "NeuralDesk Business"
+      ],
+      "credible_gap": "The request lacks a business justification or specific product name, making it impossible to determine if the existing approved tool (NeuralDesk Business) is insufficient."
+    },
+    "vendor_status": "Vendor information is missing (no vendor name provided).",
+    "data_sensitivity": "Unknown; requester did not specify data access level.",
+    "unverified_or_missing": [
+      "Vendor name",
+      "Business justification",
+      "User count",
+      "Data access level",
+      "Required integrations"
+    ],
+    "untrusted_content_concerns": []
+  },
+  "tool_calls": [
+    {
+      "name": "get_request_details",
+      "arguments": {},
+      "latency_ms": 14.1
+    },
+    {
+      "name": "check_budget",
+      "arguments": {
+        "department": "Sales",
+        "annual_cost_usd": 500
+      },
+      "latency_ms": 3.2
+    },
+    {
+      "name": "search_software_catalog",
+      "arguments": {
+        "category": "General AI"
+      },
+      "latency_ms": 7.5
+    },
+    {
+      "name": "get_vendor_registry",
+      "arguments": {
+        "vendor_name": ""
+      },
+      "latency_ms": 3.1
+    },
+    {
+      "name": "get_vendor_risk",
+      "arguments": {
+        "vendor_name": ""
+      },
+      "latency_ms": 0.0
+    },
+    {
+      "name": "run_policy_checks",
+      "arguments": {},
+      "latency_ms": 15.2
+    }
+  ],
+  "error": null,
+  "latency_ms": 23516.6
+}

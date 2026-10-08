@@ -1,0 +1,225 @@
+{
+  "case": {
+    "case_id": "EXT-09",
+    "request_id": "REQ-9005",
+    "edge_case": "budget boundary",
+    "title": "Cost exactly equals available budget",
+    "expectations": {
+      "approvals_all": [
+        "Department Head",
+        "Procurement"
+      ],
+      "approvals_none": [
+        "Finance",
+        "CFO"
+      ],
+      "flags_none": [
+        "budget_insufficient",
+        "vendor_risk_unavailable"
+      ],
+      "max_missing_information": 0,
+      "acceptable_next_actions": [
+        "route_for_approval",
+        "reuse_existing"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-9005",
+    "recommendation": "The request for the HelpDeskly Analytics add-on is within budget and the vendor is already approved with current security and legal reviews. While there is an existing tool overlap, the requester has provided a credible business justification for the missing reporting functionality.",
+    "evidence": [
+      {
+        "source": "get_request_details",
+        "finding": "Request for HelpDeskly Analytics, $7,000 annual cost, 10 users, for Customer Success department.",
+        "reference": "requests/REQ-9005"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Request is within the Customer Success department's available software budget ($7,000 available).",
+        "reference": "department_budgets.csv/Customer Success"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "HelpDeskly is an approved vendor with approved security and legal status (last review 2026-03-15).",
+        "reference": "vendors.csv/V007"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "HelpDeskly is already an approved vendor and product used by the Customer Success department.",
+        "reference": "software_catalog.csv + purchase_history.csv"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier $1,000.01 - $10,000: $7,000.00 is between $1,000.01 and $10,000 -> minimum approvals Department Head, Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Customer Success): $7,000 requested vs $7,000 available",
+        "reference": "department_budgets.csv/Customer Success; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service: status 'approved', last review 2026-03-15, risk low, personal data=True, outside region=False; registry: 'Approved' (2026-03-15), new vendor=False, legal terms 'Approved'",
+        "reference": "vendor-risk API + vendors.csv; Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Existing approved software overlaps: HelpDeskly (Customer Support, 75 seats, scope Customer Success)",
+        "reference": "software_catalog.csv; Policy section 3"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "next_step": "Route to Department Head (Robert King) and Procurement for final approval.",
+    "human_review_required": true,
+    "next_action": "route_for_approval",
+    "telemetry": {
+      "llm_calls": 3,
+      "tool_calls": 6,
+      "tool_names": [
+        "get_request_details",
+        "check_budget",
+        "search_software_catalog",
+        "get_vendor_registry",
+        "get_vendor_risk",
+        "run_policy_checks"
+      ],
+      "architecture": "staged",
+      "model": "gemini-3.1-flash-lite",
+      "prompt_tokens": 9772,
+      "completion_tokens": 1076,
+      "llm_latency_ms": 7253.1,
+      "guardrail_corrections": [],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": null
+    }
+  },
+  "raw_llm_decision": {
+    "recommendation": "The request for the HelpDeskly Analytics add-on is within budget and the vendor is already approved with current security and legal reviews. While there is an existing tool overlap, the requester has provided a credible business justification for the missing reporting functionality.",
+    "next_action": "route_for_approval",
+    "evidence": [
+      {
+        "source": "get_request_details",
+        "finding": "Request for HelpDeskly Analytics, $7,000 annual cost, 10 users, for Customer Success department.",
+        "reference": "requests/REQ-9005"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Request is within the Customer Success department's available software budget ($7,000 available).",
+        "reference": "department_budgets.csv/Customer Success"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "HelpDeskly is an approved vendor with approved security and legal status (last review 2026-03-15).",
+        "reference": "vendors.csv/V007"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "HelpDeskly is already an approved vendor and product used by the Customer Success department.",
+        "reference": "software_catalog.csv + purchase_history.csv"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "next_step": "Route to Department Head (Robert King) and Procurement for final approval.",
+    "rationale": "The request meets all policy requirements for budget, vendor security, and legal status. The existing tool overlap is addressed by the business justification that the current plan lacks the required analytics module."
+  },
+  "evidence_pack": {
+    "need_summary": "The requester needs the 'HelpDeskly Analytics' add-on for the existing 'HelpDeskly' platform to track SLA trends for the Customer Success team.",
+    "facts": [
+      {
+        "source": "get_request_details",
+        "finding": "Request for HelpDeskly Analytics, $7,000 annual cost, 10 users, for Customer Success department.",
+        "reference": "requests/REQ-9005"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Request is within the Customer Success department's available software budget ($7,000 available).",
+        "reference": "department_budgets.csv/Customer Success"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "HelpDeskly is already an approved vendor and product used by the Customer Success department.",
+        "reference": "software_catalog.csv + purchase_history.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "HelpDeskly is an approved vendor with approved security and legal status (last review 2026-03-15).",
+        "reference": "vendors.csv/V007"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor risk level is low; security review is approved (last review 2026-03-15).",
+        "reference": "GET /vendor-risk/HelpDeskly"
+      }
+    ],
+    "existing_tools": {
+      "candidates": [
+        "HelpDeskly"
+      ],
+      "credible_gap": "The requester states that the current HelpDeskly plan lacks the reporting/analytics module required for tracking SLA trends."
+    },
+    "vendor_status": "Registry and vendor-risk service are in agreement; both confirm the vendor is approved and the security review is current.",
+    "data_sensitivity": "Data access level is 'internal_documents'. Vendor processes personal data.",
+    "unverified_or_missing": [],
+    "untrusted_content_concerns": []
+  },
+  "tool_calls": [
+    {
+      "name": "get_request_details",
+      "arguments": {},
+      "latency_ms": 8.3
+    },
+    {
+      "name": "check_budget",
+      "arguments": {
+        "annual_cost_usd": 7000,
+        "department": "Customer Success"
+      },
+      "latency_ms": 2.1
+    },
+    {
+      "name": "search_software_catalog",
+      "arguments": {
+        "vendor_name": "HelpDeskly",
+        "product_name": "HelpDeskly Analytics",
+        "category": "Customer Support"
+      },
+      "latency_ms": 9.6
+    },
+    {
+      "name": "get_vendor_registry",
+      "arguments": {
+        "vendor_name": "HelpDeskly"
+      },
+      "latency_ms": 2.0
+    },
+    {
+      "name": "get_vendor_risk",
+      "arguments": {
+        "vendor_name": "HelpDeskly"
+      },
+      "latency_ms": 9.3
+    },
+    {
+      "name": "run_policy_checks",
+      "arguments": {},
+      "latency_ms": 13.9
+    }
+  ],
+  "error": null,
+  "latency_ms": 25659.8
+}

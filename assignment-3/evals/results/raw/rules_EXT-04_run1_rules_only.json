@@ -1,0 +1,85 @@
+{
+  "case": {
+    "case_id": "EXT-04",
+    "request_id": "REQ-1010",
+    "edge_case": "baseline (low value)",
+    "title": "Sub-$1k training pack from approved vendor",
+    "expectations": {
+      "approvals_all": [
+        "Manager"
+      ],
+      "approvals_none": [
+        "Finance",
+        "CFO",
+        "Security",
+        "Legal",
+        "Privacy"
+      ],
+      "flags_none": [
+        "budget_insufficient",
+        "security_review_required",
+        "legal_review_required",
+        "vendor_risk_unavailable"
+      ],
+      "max_missing_information": 0,
+      "acceptable_next_actions": [
+        "route_for_approval"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-1010",
+    "recommendation": "AI analysis unavailable - deterministic checks only. Escalate to manual review - material evidence is unavailable, conflicting or untrusted.",
+    "evidence": [
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier <= $1,000: $950.00 is up to $1,000 -> minimum approvals Manager",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Finance): $950 requested vs $29,000 available",
+        "reference": "department_budgets.csv/Finance; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service: status 'approved', last review 2026-06-20, risk low, personal data=True, outside region=False; registry: 'Approved' (2026-06-20), new vendor=False, legal terms 'Approved'",
+        "reference": "vendor-risk API + vendors.csv; Policy section 5"
+      }
+    ],
+    "required_approvals": [
+      "Manager",
+      "Procurement"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "llm_unavailable"
+    ],
+    "next_step": "Route to Manager, Procurement for manual review (unverified evidence). Do not proceed with purchase until resolved.",
+    "human_review_required": true,
+    "next_action": "manual_review",
+    "telemetry": {
+      "llm_calls": 0,
+      "tool_calls": 1,
+      "tool_names": [
+        "run_policy_checks"
+      ],
+      "architecture": "rules",
+      "model": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "llm_latency_ms": 0.0,
+      "cached_llm_calls": 0,
+      "guardrail_corrections": [
+        "rules-only fallback"
+      ],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": "rules-only baseline (no LLM)"
+    }
+  },
+  "raw_llm_decision": null,
+  "evidence_pack": null,
+  "tool_calls": [],
+  "error": null,
+  "latency_ms": 32.2
+}

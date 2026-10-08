@@ -1,0 +1,119 @@
+{
+  "case": {
+    "case_id": "EXT-02",
+    "request_id": "REQ-1007",
+    "edge_case": "conflicting / expired vendor info",
+    "title": "Registry says approved, risk service says expired",
+    "expectations": {
+      "approvals_all": [
+        "Department Head",
+        "Finance",
+        "Procurement",
+        "Security"
+      ],
+      "flags_all": [
+        "conflicting_vendor_evidence",
+        "vendor_review_expired",
+        "security_review_required"
+      ],
+      "flags_none": [
+        "budget_insufficient",
+        "vendor_risk_unavailable"
+      ],
+      "acceptable_next_actions": [
+        "manual_review"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-1007",
+    "recommendation": "AI analysis unavailable - deterministic checks only. Escalate to manual review - material evidence is unavailable, conflicting or untrusted.",
+    "evidence": [
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier $10,000.01 - $25,000: $24,000.00 is between $10,000.01 and $25,000 -> minimum approvals Department Head, Finance, Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Engineering): $24,000 requested vs $26,000 available",
+        "reference": "department_budgets.csv/Engineering; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service: status 'expired', last review 2025-07-01, risk medium, personal data=False, outside region=False; registry: 'Approved' (2025-07-01), new vendor=False, legal terms 'Approved'",
+        "reference": "vendor-risk API + vendors.csv; Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Registry says 'Approved' (2025-07-01) but vendor-risk service says 'expired' (2025-07-01) - conflict must be resolved by Security, not silently",
+        "reference": "Policy sections 5, 10"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Data access level 'production_telemetry' (production data access)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Integration 'Production cloud account' (production integration)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Vendor security assessment is not current (status 'expired', review date 2025-07-01)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Registry and vendor-risk service disagree",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Existing approved software overlaps: SignalWatch (Observability, 80 seats, scope Engineering)",
+        "reference": "software_catalog.csv; Policy section 3"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance",
+      "Security"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "security_review_required",
+      "vendor_review_expired",
+      "conflicting_vendor_evidence",
+      "existing_tool_overlap",
+      "llm_unavailable"
+    ],
+    "next_step": "Route to Department Head, Procurement, Finance, Security for manual review (vendor_review_expired, conflicting_vendor_evidence). Do not proceed with purchase until resolved.",
+    "human_review_required": true,
+    "next_action": "manual_review",
+    "telemetry": {
+      "llm_calls": 0,
+      "tool_calls": 1,
+      "tool_names": [
+        "run_policy_checks"
+      ],
+      "architecture": "rules",
+      "model": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "llm_latency_ms": 0.0,
+      "cached_llm_calls": 0,
+      "guardrail_corrections": [
+        "rules-only fallback"
+      ],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": "rules-only baseline (no LLM)"
+    }
+  },
+  "raw_llm_decision": null,
+  "evidence_pack": null,
+  "tool_calls": [],
+  "error": null,
+  "latency_ms": 41.6
+}

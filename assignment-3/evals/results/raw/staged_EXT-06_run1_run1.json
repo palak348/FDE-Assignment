@@ -1,0 +1,216 @@
+{
+  "case": {
+    "case_id": "EXT-06",
+    "request_id": "REQ-9002",
+    "edge_case": "approval threshold boundary",
+    "title": "Exactly $1,000.00 add-on",
+    "expectations": {
+      "approvals_all": [
+        "Manager"
+      ],
+      "approvals_none": [
+        "Department Head",
+        "Finance",
+        "CFO",
+        "Security",
+        "Legal"
+      ],
+      "flags_none": [
+        "budget_insufficient",
+        "security_review_required",
+        "vendor_risk_unavailable"
+      ],
+      "max_missing_information": 0,
+      "acceptable_next_actions": [
+        "route_for_approval"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-9002",
+    "recommendation": "The request for the SignFlow Bulk Send add-on is within budget and involves an existing, approved vendor. As the cost is $1,000, it requires Manager approval.",
+    "evidence": [
+      {
+        "source": "get_request_details",
+        "finding": "Request REQ-9002 for SignFlow Bulk Send, $1,000 annual cost, 2 users, Finance department.",
+        "reference": "requests/REQ-9002"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance department has $29,000 available; request is within budget.",
+        "reference": "department_budgets.csv/Finance"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "SignFlow is approved for procurement, security, and legal terms (last reviewed 2026-06-20).",
+        "reference": "vendors.csv/V010"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier is <= $1,000, requiring Manager approval.",
+        "reference": "procurement_policy.md"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier <= $1,000: $1,000.00 is up to $1,000 -> minimum approvals Manager",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Finance): $1,000 requested vs $29,000 available",
+        "reference": "department_budgets.csv/Finance; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service: status 'approved', last review 2026-06-20, risk low, personal data=True, outside region=False; registry: 'Approved' (2026-06-20), new vendor=False, legal terms 'Approved'",
+        "reference": "vendor-risk API + vendors.csv; Policy section 5"
+      }
+    ],
+    "required_approvals": [
+      "Manager"
+    ],
+    "missing_information": [],
+    "risk_flags": [],
+    "next_step": "Route the request to the requester's manager, Priya Shah (E006), for final approval.",
+    "human_review_required": true,
+    "next_action": "route_for_approval",
+    "telemetry": {
+      "llm_calls": 3,
+      "tool_calls": 6,
+      "tool_names": [
+        "get_request_details",
+        "check_budget",
+        "search_software_catalog",
+        "get_vendor_registry",
+        "get_vendor_risk",
+        "run_policy_checks"
+      ],
+      "architecture": "staged",
+      "model": "gemini-3.1-flash-lite",
+      "prompt_tokens": 9704,
+      "completion_tokens": 1083,
+      "llm_latency_ms": 11149.0,
+      "guardrail_corrections": [],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": null
+    }
+  },
+  "raw_llm_decision": {
+    "recommendation": "The request for the SignFlow Bulk Send add-on is within budget and involves an existing, approved vendor. As the cost is $1,000, it requires Manager approval.",
+    "next_action": "route_for_approval",
+    "evidence": [
+      {
+        "source": "get_request_details",
+        "finding": "Request REQ-9002 for SignFlow Bulk Send, $1,000 annual cost, 2 users, Finance department.",
+        "reference": "requests/REQ-9002"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance department has $29,000 available; request is within budget.",
+        "reference": "department_budgets.csv/Finance"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "SignFlow is approved for procurement, security, and legal terms (last reviewed 2026-06-20).",
+        "reference": "vendors.csv/V010"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier is <= $1,000, requiring Manager approval.",
+        "reference": "procurement_policy.md"
+      }
+    ],
+    "required_approvals": [
+      "Manager"
+    ],
+    "missing_information": [],
+    "risk_flags": [],
+    "next_step": "Route the request to the requester's manager, Priya Shah (E006), for final approval.",
+    "rationale": "The request is for a low-cost add-on to an existing, pre-approved vendor. The budget is sufficient, and all security and legal reviews for the vendor are current."
+  },
+  "evidence_pack": {
+    "need_summary": "The requester needs a 'Bulk Send' add-on for the existing SignFlow e-signature tool to distribute supplier code-of-conduct acknowledgements to 400 suppliers.",
+    "facts": [
+      {
+        "source": "get_request_details",
+        "finding": "Request REQ-9002 for SignFlow Bulk Send, $1,000 annual cost, 2 users, Finance department.",
+        "reference": "requests/REQ-9002"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Finance department has $29,000 available; request is within budget.",
+        "reference": "department_budgets.csv/Finance"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "SignFlow is already an approved company-wide vendor (SW010).",
+        "reference": "software_catalog.csv + purchase_history.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "SignFlow is approved for procurement, security, and legal terms (last reviewed 2026-06-20).",
+        "reference": "vendors.csv/V010"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "SignFlow risk level is low; security review approved (2026-06-20); processes personal data.",
+        "reference": "GET /vendor-risk/SignFlow"
+      }
+    ],
+    "existing_tools": {
+      "candidates": [
+        "SignFlow (SW010)"
+      ],
+      "credible_gap": "The company already uses SignFlow. The request is for a specific 'Bulk Send' add-on feature not explicitly listed in the current catalog entry, which may be required for the stated volume of 400 suppliers."
+    },
+    "vendor_status": "Registry and vendor-risk service are in agreement; both confirm SignFlow is approved and security-reviewed as of 2026-06-20.",
+    "data_sensitivity": "The tool processes personal data (supplier contacts).",
+    "unverified_or_missing": [],
+    "untrusted_content_concerns": []
+  },
+  "tool_calls": [
+    {
+      "name": "get_request_details",
+      "arguments": {},
+      "latency_ms": 16.5
+    },
+    {
+      "name": "check_budget",
+      "arguments": {
+        "department": "Finance",
+        "annual_cost_usd": 1000
+      },
+      "latency_ms": 3.5
+    },
+    {
+      "name": "search_software_catalog",
+      "arguments": {
+        "category": "E-signature Add-on",
+        "vendor_name": "SignFlow",
+        "product_name": "SignFlow Bulk Send"
+      },
+      "latency_ms": 10.8
+    },
+    {
+      "name": "get_vendor_registry",
+      "arguments": {
+        "vendor_name": "SignFlow"
+      },
+      "latency_ms": 3.4
+    },
+    {
+      "name": "get_vendor_risk",
+      "arguments": {
+        "vendor_name": "SignFlow"
+      },
+      "latency_ms": 10.0
+    },
+    {
+      "name": "run_policy_checks",
+      "arguments": {},
+      "latency_ms": 16.1
+    }
+  ],
+  "error": null,
+  "latency_ms": 28901.6
+}

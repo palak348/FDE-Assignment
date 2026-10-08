@@ -1,0 +1,262 @@
+{
+  "case": {
+    "case_id": "EXT-11",
+    "request_id": "REQ-9007",
+    "edge_case": "approval threshold (CFO) + budget",
+    "title": "$40k upgrade above budget with source-code access",
+    "expectations": {
+      "approvals_all": [
+        "Department Head",
+        "Finance",
+        "CFO",
+        "Procurement",
+        "Security"
+      ],
+      "flags_all": [
+        "budget_insufficient",
+        "security_review_required"
+      ],
+      "flags_none": [
+        "vendor_risk_unavailable"
+      ],
+      "max_missing_information": 0,
+      "acceptable_next_actions": [
+        "route_for_approval",
+        "manual_review"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-9007",
+    "recommendation": "The request for a CodeMate Enterprise upgrade is supported by a credible business case for repository-wide context and audit logs, but it requires a budget exception due to a $14,000 shortfall and mandatory security review for source code integration.",
+    "evidence": [
+      {
+        "source": "get_request_details",
+        "finding": "Request for CodeMate Enterprise Upgrade, $40,000 annual cost, 60 users, source_code access, Git integration.",
+        "reference": "requests/REQ-9007"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Engineering department has a $14,000 shortfall for this request ($26,000 available vs $40,000 requested).",
+        "reference": "department_budgets.csv/Engineering"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "CodeMate is already an approved tool (SW008) with 120 seats currently licensed for Engineering.",
+        "reference": "software_catalog.csv + purchase_history.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "CodeMate is an approved vendor with security and legal terms approved as of 2026-08-20.",
+        "reference": "vendors.csv/V008"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor risk level is medium; security review status is approved as of 2026-08-20.",
+        "reference": "GET /vendor-risk/CodeMate"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier > $25,000: $40,000.00 is above $25,000 -> minimum approvals Department Head, Finance, CFO, Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Engineering): $40,000 requested vs $26,000 available (shortfall $14,000)",
+        "reference": "department_budgets.csv/Engineering; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service: status 'approved', last review 2026-08-20, risk medium, personal data=False, outside region=False; registry: 'Approved' (2026-08-20), new vendor=False, legal terms 'Approved'",
+        "reference": "vendor-risk API + vendors.csv; Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Finance review required: Budget exception: $40,000 requested vs $26,000 available (shortfall $14,000)",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Data access level 'source_code' (source code access)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Integration 'Git repositories' (source-code repository integration)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Existing approved software overlaps: CodeMate (Developer AI, 120 seats, scope Engineering)",
+        "reference": "software_catalog.csv; Policy section 3"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance",
+      "CFO",
+      "Security"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "budget_insufficient",
+      "security_review_required",
+      "existing_tool_overlap"
+    ],
+    "next_step": "Route to Department Head, Finance, CFO, and Security for approval, specifically highlighting the budget exception and the requirement for source code integration review.",
+    "human_review_required": true,
+    "next_action": "route_for_approval",
+    "telemetry": {
+      "llm_calls": 3,
+      "tool_calls": 6,
+      "tool_names": [
+        "get_request_details",
+        "check_budget",
+        "search_software_catalog",
+        "get_vendor_registry",
+        "get_vendor_risk",
+        "run_policy_checks"
+      ],
+      "architecture": "staged",
+      "model": "gemini-3.1-flash-lite",
+      "prompt_tokens": 9954,
+      "completion_tokens": 1279,
+      "llm_latency_ms": 13823.1,
+      "guardrail_corrections": [],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": null
+    }
+  },
+  "raw_llm_decision": {
+    "recommendation": "The request for a CodeMate Enterprise upgrade is supported by a credible business case for repository-wide context and audit logs, but it requires a budget exception due to a $14,000 shortfall and mandatory security review for source code integration.",
+    "next_action": "route_for_approval",
+    "evidence": [
+      {
+        "source": "get_request_details",
+        "finding": "Request for CodeMate Enterprise Upgrade, $40,000 annual cost, 60 users, source_code access, Git integration.",
+        "reference": "requests/REQ-9007"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Engineering department has a $14,000 shortfall for this request ($26,000 available vs $40,000 requested).",
+        "reference": "department_budgets.csv/Engineering"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "CodeMate is already an approved tool (SW008) with 120 seats currently licensed for Engineering.",
+        "reference": "software_catalog.csv + purchase_history.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "CodeMate is an approved vendor with security and legal terms approved as of 2026-08-20.",
+        "reference": "vendors.csv/V008"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor risk level is medium; security review status is approved as of 2026-08-20.",
+        "reference": "GET /vendor-risk/CodeMate"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Finance",
+      "CFO",
+      "Procurement",
+      "Security"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "budget_insufficient",
+      "security_review_required",
+      "existing_tool_overlap"
+    ],
+    "next_step": "Route to Department Head, Finance, CFO, and Security for approval, specifically highlighting the budget exception and the requirement for source code integration review.",
+    "rationale": "The request exceeds the available department budget and involves high-sensitivity data (source code), necessitating formal budget exception approval and a security review, despite the vendor being pre-approved."
+  },
+  "evidence_pack": {
+    "need_summary": "The requester is seeking an upgrade to the existing CodeMate subscription to the Enterprise tier for 60 platform engineers to enable repository-wide context and audit logs.",
+    "facts": [
+      {
+        "source": "get_request_details",
+        "finding": "Request for CodeMate Enterprise Upgrade, $40,000 annual cost, 60 users, source_code access, Git integration.",
+        "reference": "requests/REQ-9007"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Engineering department has a $14,000 shortfall for this request ($26,000 available vs $40,000 requested).",
+        "reference": "department_budgets.csv/Engineering"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "CodeMate is already an approved tool (SW008) with 120 seats currently licensed for Engineering.",
+        "reference": "software_catalog.csv + purchase_history.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "CodeMate is an approved vendor with security and legal terms approved as of 2026-08-20.",
+        "reference": "vendors.csv/V008"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor risk level is medium; security review status is approved as of 2026-08-20.",
+        "reference": "GET /vendor-risk/CodeMate"
+      }
+    ],
+    "existing_tools": {
+      "candidates": [
+        "CodeMate (SW008)"
+      ],
+      "credible_gap": "The department already uses CodeMate. The request is for an 'Enterprise Upgrade' to access specific features (repository-wide context and audit logs) not currently available in the existing tier."
+    },
+    "vendor_status": "Registry and vendor-risk service are in agreement; both confirm the vendor is approved and the security review is current.",
+    "data_sensitivity": "High: The tool requires access to source code and integration with Git repositories.",
+    "unverified_or_missing": [],
+    "untrusted_content_concerns": []
+  },
+  "tool_calls": [
+    {
+      "name": "get_request_details",
+      "arguments": {},
+      "latency_ms": 7.9
+    },
+    {
+      "name": "check_budget",
+      "arguments": {
+        "annual_cost_usd": 40000,
+        "department": "Engineering"
+      },
+      "latency_ms": 1.7
+    },
+    {
+      "name": "search_software_catalog",
+      "arguments": {
+        "product_name": "CodeMate Enterprise Upgrade",
+        "category": "Developer AI",
+        "vendor_name": "CodeMate"
+      },
+      "latency_ms": 6.2
+    },
+    {
+      "name": "get_vendor_registry",
+      "arguments": {
+        "vendor_name": "CodeMate"
+      },
+      "latency_ms": 1.5
+    },
+    {
+      "name": "get_vendor_risk",
+      "arguments": {
+        "vendor_name": "CodeMate"
+      },
+      "latency_ms": 6.5
+    },
+    {
+      "name": "run_policy_checks",
+      "arguments": {},
+      "latency_ms": 17.4
+    }
+  ],
+  "error": null,
+  "latency_ms": 28050.0
+}

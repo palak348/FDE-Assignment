@@ -1,0 +1,121 @@
+{
+  "case": {
+    "case_id": "EXT-10",
+    "request_id": "REQ-9006",
+    "edge_case": "incomplete / ambiguous",
+    "title": "Vague request with no vendor, users or purpose",
+    "expectations": {
+      "flags_all": [
+        "missing_information"
+      ],
+      "missing_any_groups": [
+        [
+          "user",
+          "seat",
+          "licen"
+        ],
+        [
+          "data"
+        ],
+        [
+          "vendor",
+          "product"
+        ],
+        [
+          "purpose",
+          "justification"
+        ]
+      ],
+      "acceptable_next_actions": [
+        "request_info"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-9006",
+    "recommendation": "AI analysis unavailable - deterministic checks only. Request more information before review - the request is incomplete.",
+    "evidence": [
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier <= $1,000: $500.00 is up to $1,000 -> minimum approvals Manager",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Sales): $500 requested vs $18,000 available",
+        "reference": "department_budgets.csv/Sales; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service could not verify status (bad_request: No vendor name supplied)",
+        "reference": "Policy sections 5, 10"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Vendor security status could not be verified (service unavailable)",
+        "reference": "Policy sections 5, 10"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Legal review required: Legal terms not approved/standard (status 'unknown')",
+        "reference": "Policy section 7"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Existing approved software overlaps: NeuralDesk Business (General AI, 150 seats, scope Company-wide)",
+        "reference": "software_catalog.csv; Policy section 3"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Missing required information: product / vendor, number of users / licenses, business purpose, intended data access level",
+        "reference": "Policy section 1"
+      }
+    ],
+    "required_approvals": [
+      "Manager",
+      "Procurement",
+      "Security",
+      "Legal"
+    ],
+    "missing_information": [
+      "product / vendor",
+      "number of users / licenses",
+      "business purpose",
+      "intended data access level"
+    ],
+    "risk_flags": [
+      "security_review_required",
+      "legal_review_required",
+      "vendor_risk_unavailable",
+      "existing_tool_overlap",
+      "missing_information",
+      "llm_unavailable"
+    ],
+    "next_step": "Return the request to the requester to supply: product / vendor, number of users / licenses, business purpose, intended data access level. Re-run the review once complete.",
+    "human_review_required": true,
+    "next_action": "request_info",
+    "telemetry": {
+      "llm_calls": 0,
+      "tool_calls": 1,
+      "tool_names": [
+        "run_policy_checks"
+      ],
+      "architecture": "rules",
+      "model": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "llm_latency_ms": 0.0,
+      "cached_llm_calls": 0,
+      "guardrail_corrections": [
+        "rules-only fallback"
+      ],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": "rules-only baseline (no LLM)"
+    }
+  },
+  "raw_llm_decision": null,
+  "evidence_pack": null,
+  "tool_calls": [],
+  "error": null,
+  "latency_ms": 19.3
+}

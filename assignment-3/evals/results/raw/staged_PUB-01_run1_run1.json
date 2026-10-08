@@ -1,0 +1,237 @@
+{
+  "case": {
+    "case_id": "PUB-01",
+    "request_id": "REQ-1001",
+    "edge_case": "baseline",
+    "title": "Low-value approved vendor",
+    "expectations": {
+      "approvals_all": [
+        "Manager"
+      ],
+      "approvals_none": [
+        "Finance",
+        "CFO",
+        "Security",
+        "Legal",
+        "Privacy"
+      ],
+      "flags_none": [
+        "budget_insufficient",
+        "vendor_risk_unavailable",
+        "security_review_required",
+        "prompt_injection_detected"
+      ],
+      "max_missing_information": 0,
+      "acceptable_next_actions": [
+        "route_for_approval",
+        "reuse_existing"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-1001",
+    "recommendation": "The request for additional SignFlow identities is within budget and utilizes an existing, approved vendor with current security and legal status. I recommend routing this to the requester's manager for approval.",
+    "evidence": [
+      {
+        "source": "get_request_details",
+        "finding": "Requester Noah Williams (Finance) needs 3 additional SignFlow identities for $800/year.",
+        "reference": "requests/REQ-1001"
+      },
+      {
+        "source": "check_budget",
+        "finding": "The request is within the Finance department's available software budget ($29,000 available).",
+        "reference": "department_budgets.csv/Finance"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "SignFlow is an approved, company-wide tool already in use by Finance.",
+        "reference": "software_catalog.csv + purchase_history.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "SignFlow is an approved vendor with current security and legal status.",
+        "reference": "vendors.csv/V010"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor risk is low; security review is current (2026-06-20).",
+        "reference": "GET /vendor-risk/SignFlow"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier <= $1,000: $800.00 is up to $1,000 -> minimum approvals Manager",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Finance): $800 requested vs $29,000 available",
+        "reference": "department_budgets.csv/Finance; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service: status 'approved', last review 2026-06-20, risk low, personal data=True, outside region=False; registry: 'Approved' (2026-06-20), new vendor=False, legal terms 'Approved'",
+        "reference": "vendor-risk API + vendors.csv; Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Existing approved software overlaps: SignFlow (E-signature, 45 seats, scope Company-wide)",
+        "reference": "software_catalog.csv; Policy section 3"
+      }
+    ],
+    "required_approvals": [
+      "Manager"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "next_step": "Route the request to Priya Shah (Director, Finance) for manager approval.",
+    "human_review_required": true,
+    "next_action": "route_for_approval",
+    "telemetry": {
+      "llm_calls": 3,
+      "tool_calls": 6,
+      "tool_names": [
+        "get_request_details",
+        "check_budget",
+        "search_software_catalog",
+        "get_vendor_registry",
+        "get_vendor_risk",
+        "run_policy_checks"
+      ],
+      "architecture": "staged",
+      "model": "gemini-3.1-flash-lite",
+      "prompt_tokens": 9567,
+      "completion_tokens": 1066,
+      "llm_latency_ms": 15991.8,
+      "guardrail_corrections": [],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": null
+    }
+  },
+  "raw_llm_decision": {
+    "recommendation": "The request for additional SignFlow identities is within budget and utilizes an existing, approved vendor with current security and legal status. I recommend routing this to the requester's manager for approval.",
+    "next_action": "route_for_approval",
+    "evidence": [
+      {
+        "source": "get_request_details",
+        "finding": "Requester Noah Williams (Finance) needs 3 additional SignFlow identities for $800/year.",
+        "reference": "requests/REQ-1001"
+      },
+      {
+        "source": "check_budget",
+        "finding": "The request is within the Finance department's available software budget ($29,000 available).",
+        "reference": "department_budgets.csv/Finance"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "SignFlow is an approved, company-wide tool already in use by Finance.",
+        "reference": "software_catalog.csv + purchase_history.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "SignFlow is an approved vendor with current security and legal status.",
+        "reference": "vendors.csv/V010"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor risk is low; security review is current (2026-06-20).",
+        "reference": "GET /vendor-risk/SignFlow"
+      }
+    ],
+    "required_approvals": [
+      "Manager"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "next_step": "Route the request to Priya Shah (Director, Finance) for manager approval.",
+    "rationale": "The request is for additional capacity on an existing, approved tool. It meets all policy requirements, including budget and security, and requires only manager approval based on the $800 annual cost."
+  },
+  "evidence_pack": {
+    "need_summary": "The Finance department is requesting three additional signing identities for the existing SignFlow e-signature tool to support quarter-end vendor agreements.",
+    "facts": [
+      {
+        "source": "get_request_details",
+        "finding": "Requester Noah Williams (Finance) needs 3 additional SignFlow identities for $800/year.",
+        "reference": "requests/REQ-1001"
+      },
+      {
+        "source": "check_budget",
+        "finding": "The request is within the Finance department's available software budget ($29,000 available).",
+        "reference": "department_budgets.csv/Finance"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "SignFlow is an approved, company-wide tool already in use by Finance.",
+        "reference": "software_catalog.csv + purchase_history.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "SignFlow is an approved vendor with current security and legal status.",
+        "reference": "vendors.csv/V010"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor risk is low; security review is current (2026-06-20).",
+        "reference": "GET /vendor-risk/SignFlow"
+      }
+    ],
+    "existing_tools": {
+      "candidates": [
+        "SignFlow"
+      ],
+      "credible_gap": "The requester is asking for additional seats for an existing, approved tool (SignFlow) already used by their department."
+    },
+    "vendor_status": "Registry and vendor-risk service are in agreement; both confirm the vendor is approved and the security review is current.",
+    "data_sensitivity": "Internal documents; processes personal data (per vendor-risk service).",
+    "unverified_or_missing": [],
+    "untrusted_content_concerns": []
+  },
+  "tool_calls": [
+    {
+      "name": "get_request_details",
+      "arguments": {},
+      "latency_ms": 12.6
+    },
+    {
+      "name": "check_budget",
+      "arguments": {
+        "annual_cost_usd": 800,
+        "department": "Finance"
+      },
+      "latency_ms": 2.7
+    },
+    {
+      "name": "search_software_catalog",
+      "arguments": {
+        "vendor_name": "SignFlow",
+        "product_name": "SignFlow Add-on",
+        "category": "E-signature"
+      },
+      "latency_ms": 8.9
+    },
+    {
+      "name": "get_vendor_registry",
+      "arguments": {
+        "vendor_name": "SignFlow"
+      },
+      "latency_ms": 3.6
+    },
+    {
+      "name": "get_vendor_risk",
+      "arguments": {
+        "vendor_name": "SignFlow"
+      },
+      "latency_ms": 10.6
+    },
+    {
+      "name": "run_policy_checks",
+      "arguments": {},
+      "latency_ms": 19.6
+    }
+  ],
+  "error": null,
+  "latency_ms": 16073.3
+}

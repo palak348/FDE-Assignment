@@ -1,0 +1,171 @@
+{
+  "case": {
+    "case_id": "EXT-06",
+    "request_id": "REQ-9002",
+    "edge_case": "approval threshold boundary",
+    "title": "Exactly $1,000.00 add-on",
+    "expectations": {
+      "approvals_all": [
+        "Manager"
+      ],
+      "approvals_none": [
+        "Department Head",
+        "Finance",
+        "CFO",
+        "Security",
+        "Legal"
+      ],
+      "flags_none": [
+        "budget_insufficient",
+        "security_review_required",
+        "vendor_risk_unavailable"
+      ],
+      "max_missing_information": 0,
+      "acceptable_next_actions": [
+        "route_for_approval"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-9002",
+    "recommendation": "The request is within budget and the vendor is already approved. However, since the company already has a company-wide license for SignFlow, please confirm if the 'Bulk Send' feature is included in the existing agreement before proceeding with a new purchase.",
+    "evidence": [
+      {
+        "source": "search_software_catalog",
+        "finding": "Company-wide license for SignFlow (SW010) already exists.",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Request is within the Finance department's available budget.",
+        "reference": "department_budgets.csv/Finance"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "SignFlow is an approved vendor with current security and legal status.",
+        "reference": "vendors.csv/V010"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier <= $1,000: $1,000.00 is up to $1,000 -> minimum approvals Manager",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Finance): $1,000 requested vs $29,000 available",
+        "reference": "department_budgets.csv/Finance; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service: status 'approved', last review 2026-06-20, risk low, personal data=True, outside region=False; registry: 'Approved' (2026-06-20), new vendor=False, legal terms 'Approved'",
+        "reference": "vendor-risk API + vendors.csv; Policy section 5"
+      }
+    ],
+    "required_approvals": [
+      "Manager"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "next_step": "Contact the internal software administrator or the SignFlow account manager to verify if the 'Bulk Send' functionality is already available under the existing company-wide license before approving this additional spend.",
+    "human_review_required": true,
+    "next_action": "reuse_existing",
+    "telemetry": {
+      "llm_calls": 2,
+      "tool_calls": 6,
+      "tool_names": [
+        "get_request_details",
+        "check_budget",
+        "search_software_catalog",
+        "get_vendor_registry",
+        "get_vendor_risk",
+        "run_policy_checks"
+      ],
+      "architecture": "single",
+      "model": "gemini-3.1-flash-lite",
+      "prompt_tokens": 6514,
+      "completion_tokens": 504,
+      "llm_latency_ms": 15655.3,
+      "guardrail_corrections": [],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": null
+    }
+  },
+  "raw_llm_decision": {
+    "recommendation": "The request is within budget and the vendor is already approved. However, since the company already has a company-wide license for SignFlow, please confirm if the 'Bulk Send' feature is included in the existing agreement before proceeding with a new purchase.",
+    "next_action": "reuse_existing",
+    "evidence": [
+      {
+        "source": "search_software_catalog",
+        "finding": "Company-wide license for SignFlow (SW010) already exists.",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "check_budget",
+        "finding": "Request is within the Finance department's available budget.",
+        "reference": "department_budgets.csv/Finance"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "SignFlow is an approved vendor with current security and legal status.",
+        "reference": "vendors.csv/V010"
+      }
+    ],
+    "required_approvals": [
+      "Manager"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "next_step": "Contact the internal software administrator or the SignFlow account manager to verify if the 'Bulk Send' functionality is already available under the existing company-wide license before approving this additional spend.",
+    "rationale": "The company already has a company-wide license for SignFlow. It is more efficient to check if the requested feature is already covered by the existing contract rather than purchasing a separate add-on."
+  },
+  "evidence_pack": null,
+  "tool_calls": [
+    {
+      "name": "get_request_details",
+      "arguments": {},
+      "latency_ms": 6.6
+    },
+    {
+      "name": "check_budget",
+      "arguments": {
+        "annual_cost_usd": 1000,
+        "department": "Finance"
+      },
+      "latency_ms": 1.3
+    },
+    {
+      "name": "search_software_catalog",
+      "arguments": {
+        "category": "E-signature Add-on",
+        "product_name": "SignFlow Bulk Send",
+        "vendor_name": "SignFlow"
+      },
+      "latency_ms": 4.4
+    },
+    {
+      "name": "get_vendor_registry",
+      "arguments": {
+        "vendor_name": "SignFlow"
+      },
+      "latency_ms": 1.7
+    },
+    {
+      "name": "get_vendor_risk",
+      "arguments": {
+        "vendor_name": "SignFlow"
+      },
+      "latency_ms": 6.0
+    },
+    {
+      "name": "run_policy_checks",
+      "arguments": {},
+      "latency_ms": 9.7
+    }
+  ],
+  "error": null,
+  "latency_ms": 15689.1
+}

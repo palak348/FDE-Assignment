@@ -1,0 +1,220 @@
+{
+  "case": {
+    "case_id": "EXT-03",
+    "request_id": "REQ-1008",
+    "edge_case": "existing tool already solves the need",
+    "title": "TaskFlow Pro while company-wide TaskFlow exists",
+    "expectations": {
+      "approvals_all": [
+        "Department Head",
+        "Procurement"
+      ],
+      "approvals_none": [
+        "Finance",
+        "CFO",
+        "Security",
+        "Legal"
+      ],
+      "flags_all": [
+        "existing_tool_overlap"
+      ],
+      "flags_none": [
+        "budget_insufficient",
+        "security_review_required",
+        "vendor_risk_unavailable"
+      ],
+      "max_missing_information": 0,
+      "acceptable_next_actions": [
+        "reuse_existing"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-1008",
+    "recommendation": "The request is within budget and the vendor is approved, but TaskFlow is already a company-wide tool with available seats. The requester should be directed to use existing licenses rather than initiating a new purchase.",
+    "evidence": [
+      {
+        "source": "search_software_catalog",
+        "finding": "TaskFlow is an approved, company-wide tool with 180 licensed seats and is available to the requester.",
+        "reference": "software_catalog.csv + purchase_history.csv"
+      },
+      {
+        "source": "check_budget",
+        "finding": "The request is within the Marketing department's available software budget ($8,000 requested vs $15,000 available).",
+        "reference": "department_budgets.csv/Marketing"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "TaskFlow is an approved vendor with current security and legal terms.",
+        "reference": "vendors.csv/V003"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier $1,000.01 - $10,000: $8,000.00 is between $1,000.01 and $10,000 -> minimum approvals Department Head, Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Marketing): $8,000 requested vs $15,000 available",
+        "reference": "department_budgets.csv/Marketing; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service: status 'approved', last review 2026-06-03, risk low, personal data=True, outside region=False; registry: 'Approved' (2026-06-03), new vendor=False, legal terms 'Approved'",
+        "reference": "vendor-risk API + vendors.csv; Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Existing approved software overlaps: TaskFlow (Project Management, 180 seats, scope Company-wide)",
+        "reference": "software_catalog.csv; Policy section 3"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "next_step": "Notify the requester that TaskFlow is already available company-wide and advise them to coordinate with their department manager to obtain access to existing licenses instead of purchasing a new subscription.",
+    "human_review_required": true,
+    "next_action": "reuse_existing",
+    "telemetry": {
+      "llm_calls": 3,
+      "tool_calls": 6,
+      "tool_names": [
+        "get_request_details",
+        "check_budget",
+        "search_software_catalog",
+        "get_vendor_registry",
+        "get_vendor_risk",
+        "run_policy_checks"
+      ],
+      "architecture": "staged",
+      "model": "gemini-3.1-flash-lite",
+      "prompt_tokens": 9620,
+      "completion_tokens": 993,
+      "llm_latency_ms": 17168.6,
+      "guardrail_corrections": [],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": null
+    }
+  },
+  "raw_llm_decision": {
+    "recommendation": "The request is within budget and the vendor is approved, but TaskFlow is already a company-wide tool with available seats. The requester should be directed to use existing licenses rather than initiating a new purchase.",
+    "next_action": "reuse_existing",
+    "evidence": [
+      {
+        "source": "search_software_catalog",
+        "finding": "TaskFlow is an approved, company-wide tool with 180 licensed seats and is available to the requester.",
+        "reference": "software_catalog.csv + purchase_history.csv"
+      },
+      {
+        "source": "check_budget",
+        "finding": "The request is within the Marketing department's available software budget ($8,000 requested vs $15,000 available).",
+        "reference": "department_budgets.csv/Marketing"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "TaskFlow is an approved vendor with current security and legal terms.",
+        "reference": "vendors.csv/V003"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "existing_tool_overlap"
+    ],
+    "next_step": "Notify the requester that TaskFlow is already available company-wide and advise them to coordinate with their department manager to obtain access to existing licenses instead of purchasing a new subscription.",
+    "rationale": "The company already maintains a company-wide agreement for TaskFlow (SW003). Purchasing a new subscription for the same tool is redundant and inefficient given the existing capacity."
+  },
+  "evidence_pack": {
+    "need_summary": "The Marketing department is requesting TaskFlow Pro for campaign launch tracking.",
+    "facts": [
+      {
+        "source": "get_request_details",
+        "finding": "Requester: Sarah Lee (Marketing), Manager: David Chen (Director, Marketing). Annual cost: $8,000. Users: 15.",
+        "reference": "requests/REQ-1008"
+      },
+      {
+        "source": "check_budget",
+        "finding": "The request is within the Marketing department's available software budget ($8,000 requested vs $15,000 available).",
+        "reference": "department_budgets.csv/Marketing"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "TaskFlow is already an approved, company-wide tool with available seats.",
+        "reference": "software_catalog.csv + purchase_history.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "TaskFlow is an approved vendor with approved security and legal terms.",
+        "reference": "vendors.csv/V003"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor risk level is low; security review is current (2026-06-03).",
+        "reference": "GET /vendor-risk/TaskFlow"
+      }
+    ],
+    "existing_tools": {
+      "candidates": [
+        "TaskFlow"
+      ],
+      "credible_gap": "The company already has a company-wide agreement for TaskFlow (SW003). The requester may be able to use existing licenses rather than purchasing a new subscription."
+    },
+    "vendor_status": "Registry and vendor-risk service are in agreement; both confirm the vendor is approved and the security review is current.",
+    "data_sensitivity": "Internal marketing data; SSO integration requested.",
+    "unverified_or_missing": [],
+    "untrusted_content_concerns": []
+  },
+  "tool_calls": [
+    {
+      "name": "get_request_details",
+      "arguments": {},
+      "latency_ms": 11.1
+    },
+    {
+      "name": "check_budget",
+      "arguments": {
+        "department": "Marketing",
+        "annual_cost_usd": 8000
+      },
+      "latency_ms": 2.8
+    },
+    {
+      "name": "search_software_catalog",
+      "arguments": {
+        "vendor_name": "TaskFlow",
+        "category": "Project Management",
+        "product_name": "TaskFlow Pro"
+      },
+      "latency_ms": 20.0
+    },
+    {
+      "name": "get_vendor_registry",
+      "arguments": {
+        "vendor_name": "TaskFlow"
+      },
+      "latency_ms": 3.2
+    },
+    {
+      "name": "get_vendor_risk",
+      "arguments": {
+        "vendor_name": "TaskFlow"
+      },
+      "latency_ms": 10.6
+    },
+    {
+      "name": "run_policy_checks",
+      "arguments": {},
+      "latency_ms": 28.2
+    }
+  ],
+  "error": null,
+  "latency_ms": 33669.7
+}

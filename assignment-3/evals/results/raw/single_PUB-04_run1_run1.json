@@ -1,0 +1,245 @@
+{
+  "case": {
+    "case_id": "PUB-04",
+    "request_id": "REQ-1005",
+    "edge_case": "approval threshold + budget",
+    "title": "Budget shortfall + new sensitive vendor",
+    "expectations": {
+      "approvals_all": [
+        "Department Head",
+        "Finance",
+        "Procurement",
+        "Security",
+        "Privacy",
+        "Legal"
+      ],
+      "approvals_none": [
+        "CFO"
+      ],
+      "flags_all": [
+        "budget_insufficient",
+        "security_review_required",
+        "privacy_review_required",
+        "legal_review_required"
+      ],
+      "max_missing_information": 0,
+      "acceptable_next_actions": [
+        "route_for_approval",
+        "manual_review"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-1005",
+    "recommendation": "This request requires significant review due to a budget shortfall, the use of a new vendor, and the handling of customer PII. I recommend routing this for manual review by Finance, Security, Privacy, and Legal before proceeding.",
+    "evidence": [
+      {
+        "source": "check_budget",
+        "finding": "Requested $22,000 exceeds available budget of $18,000 (shortfall $4,000).",
+        "reference": "department_budgets.csv/Sales"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Required approvals: Department Head, Procurement, Finance, Security, Privacy, Legal.",
+        "reference": "procurement_policy.md"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor GrowthForge is high risk, processes customer PII, and stores data outside the operating region.",
+        "reference": "GET /vendor-risk/GrowthForge"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Vendor status is 'New' with no prior security assessment or legal terms.",
+        "reference": "vendors.csv/V012"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier $10,000.01 - $25,000: $22,000.00 is between $10,000.01 and $25,000 -> minimum approvals Department Head, Finance, Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Sales): $22,000 requested vs $18,000 available (shortfall $4,000)",
+        "reference": "department_budgets.csv/Sales; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service: status 'not_completed', last review None, risk high, personal data=True, outside region=True; registry: 'Pending' (None), new vendor=True, legal terms 'Unknown'",
+        "reference": "vendor-risk API + vendors.csv; Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor security assessment is 'not_completed'",
+        "reference": "Policy sections 5, 10"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Finance review required: Budget exception: $22,000 requested vs $18,000 available (shortfall $4,000)",
+        "reference": "Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Data access level 'customer_pii' (customer PII)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Vendor security assessment is not current (status 'not_completed', review date None)",
+        "reference": "Policy section 5"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Privacy review required: Tool will process customer PII",
+        "reference": "Policy section 6"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Privacy review required: Vendor stores data outside the operating region and data is sensitive",
+        "reference": "Policy section 6"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Legal review required: New vendor with annual spend $22,000 (>= $10,000)",
+        "reference": "Policy section 7"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Legal review required: Legal terms not approved/standard (status 'Unknown')",
+        "reference": "Policy section 7"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Legal review required: Cross-region processing of personal data",
+        "reference": "Policy section 7"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance",
+      "Security",
+      "Privacy",
+      "Legal"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "budget_insufficient",
+      "security_review_required",
+      "privacy_review_required",
+      "legal_review_required"
+    ],
+    "next_step": "Route to Finance for budget exception review and initiate Security, Privacy, and Legal assessments for the new vendor.",
+    "human_review_required": true,
+    "next_action": "manual_review",
+    "telemetry": {
+      "llm_calls": 2,
+      "tool_calls": 6,
+      "tool_names": [
+        "get_request_details",
+        "check_budget",
+        "search_software_catalog",
+        "get_vendor_registry",
+        "get_vendor_risk",
+        "run_policy_checks"
+      ],
+      "architecture": "single",
+      "model": "gemini-3.1-flash-lite",
+      "prompt_tokens": 6603,
+      "completion_tokens": 565,
+      "llm_latency_ms": 0.0,
+      "guardrail_corrections": [],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": null
+    }
+  },
+  "raw_llm_decision": {
+    "recommendation": "This request requires significant review due to a budget shortfall, the use of a new vendor, and the handling of customer PII. I recommend routing this for manual review by Finance, Security, Privacy, and Legal before proceeding.",
+    "next_action": "manual_review",
+    "evidence": [
+      {
+        "source": "check_budget",
+        "finding": "Requested $22,000 exceeds available budget of $18,000 (shortfall $4,000).",
+        "reference": "department_budgets.csv/Sales"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Required approvals: Department Head, Procurement, Finance, Security, Privacy, Legal.",
+        "reference": "procurement_policy.md"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "Vendor GrowthForge is high risk, processes customer PII, and stores data outside the operating region.",
+        "reference": "GET /vendor-risk/GrowthForge"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "Vendor status is 'New' with no prior security assessment or legal terms.",
+        "reference": "vendors.csv/V012"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Finance",
+      "Security",
+      "Privacy",
+      "Legal"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "budget_insufficient",
+      "security_review_required",
+      "privacy_review_required",
+      "legal_review_required"
+    ],
+    "next_step": "Route to Finance for budget exception review and initiate Security, Privacy, and Legal assessments for the new vendor.",
+    "rationale": "The request exceeds the department's available budget and involves a new, high-risk vendor handling customer PII, triggering mandatory reviews across all control functions."
+  },
+  "evidence_pack": null,
+  "tool_calls": [
+    {
+      "name": "get_request_details",
+      "arguments": {},
+      "latency_ms": 13.3
+    },
+    {
+      "name": "check_budget",
+      "arguments": {
+        "annual_cost_usd": 22000,
+        "department": "Sales"
+      },
+      "latency_ms": 2.1
+    },
+    {
+      "name": "search_software_catalog",
+      "arguments": {
+        "product_name": "ProspectPilot",
+        "category": "Sales Intelligence",
+        "vendor_name": "GrowthForge"
+      },
+      "latency_ms": 6.7
+    },
+    {
+      "name": "get_vendor_registry",
+      "arguments": {
+        "vendor_name": "GrowthForge"
+      },
+      "latency_ms": 2.1
+    },
+    {
+      "name": "get_vendor_risk",
+      "arguments": {
+        "vendor_name": "GrowthForge"
+      },
+      "latency_ms": 11.3
+    },
+    {
+      "name": "run_policy_checks",
+      "arguments": {},
+      "latency_ms": 15.1
+    }
+  ],
+  "error": null,
+  "latency_ms": 142.2
+}

@@ -1,0 +1,228 @@
+{
+  "case": {
+    "case_id": "EXT-10",
+    "request_id": "REQ-9006",
+    "edge_case": "incomplete / ambiguous",
+    "title": "Vague request with no vendor, users or purpose",
+    "expectations": {
+      "flags_all": [
+        "missing_information"
+      ],
+      "missing_any_groups": [
+        [
+          "user",
+          "seat",
+          "licen"
+        ],
+        [
+          "data"
+        ],
+        [
+          "vendor",
+          "product"
+        ],
+        [
+          "purpose",
+          "justification"
+        ]
+      ],
+      "acceptable_next_actions": [
+        "request_info"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-9006",
+    "recommendation": "The request is missing critical information, including the vendor name, business purpose, and user count. Additionally, an existing approved AI tool (NeuralDesk Business) is available for company-wide use, and the new vendor cannot be verified.",
+    "evidence": [
+      {
+        "source": "get_request_details",
+        "finding": "Request is missing vendor name, user count, and business justification.",
+        "reference": "REQ-9006"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "NeuralDesk Business is an approved AI tool available to the requester.",
+        "reference": "SW009"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security and Legal reviews are required due to missing vendor verification and unknown legal terms.",
+        "reference": "Policy sections 5, 7, 10"
+      },
+      {
+        "source": "check_budget",
+        "finding": "The request is within the Sales department's available software budget.",
+        "reference": "Sales budget"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier <= $1,000: $500.00 is up to $1,000 -> minimum approvals Manager",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Sales): $500 requested vs $18,000 available",
+        "reference": "department_budgets.csv/Sales; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service could not verify status (bad_request: No vendor name supplied)",
+        "reference": "Policy sections 5, 10"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Vendor security status could not be verified (service unavailable)",
+        "reference": "Policy sections 5, 10"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Legal review required: Legal terms not approved/standard (status 'unknown')",
+        "reference": "Policy section 7"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Existing approved software overlaps: NeuralDesk Business (General AI, 150 seats, scope Company-wide)",
+        "reference": "software_catalog.csv; Policy section 3"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Missing required information: product / vendor, number of users / licenses, business purpose, intended data access level",
+        "reference": "Policy section 1"
+      }
+    ],
+    "required_approvals": [
+      "Manager",
+      "Security",
+      "Legal"
+    ],
+    "missing_information": [
+      "product / vendor",
+      "number of users / licenses",
+      "business purpose",
+      "intended data access level"
+    ],
+    "risk_flags": [
+      "security_review_required",
+      "legal_review_required",
+      "vendor_risk_unavailable",
+      "existing_tool_overlap",
+      "missing_information"
+    ],
+    "next_step": "Request the missing information from the requester and ask if the existing approved tool, NeuralDesk Business, meets their needs.",
+    "human_review_required": true,
+    "next_action": "request_info",
+    "telemetry": {
+      "llm_calls": 2,
+      "tool_calls": 6,
+      "tool_names": [
+        "get_request_details",
+        "check_budget",
+        "search_software_catalog",
+        "get_vendor_registry",
+        "get_vendor_risk",
+        "run_policy_checks"
+      ],
+      "architecture": "single",
+      "model": "gemini-3.1-flash-lite",
+      "prompt_tokens": 6331,
+      "completion_tokens": 544,
+      "llm_latency_ms": 4027.8,
+      "guardrail_corrections": [
+        "dropped model missing-info not supported by request data: intended_data_access_level"
+      ],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": null
+    }
+  },
+  "raw_llm_decision": {
+    "recommendation": "The request is missing critical information, including the vendor name, business purpose, and user count. Additionally, an existing approved AI tool (NeuralDesk Business) is available for company-wide use, and the new vendor cannot be verified.",
+    "next_action": "request_info",
+    "evidence": [
+      {
+        "source": "get_request_details",
+        "finding": "Request is missing vendor name, user count, and business justification.",
+        "reference": "REQ-9006"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "NeuralDesk Business is an approved AI tool available to the requester.",
+        "reference": "SW009"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security and Legal reviews are required due to missing vendor verification and unknown legal terms.",
+        "reference": "Policy sections 5, 7, 10"
+      },
+      {
+        "source": "check_budget",
+        "finding": "The request is within the Sales department's available software budget.",
+        "reference": "Sales budget"
+      }
+    ],
+    "required_approvals": [
+      "Manager",
+      "Security",
+      "Legal"
+    ],
+    "missing_information": [
+      "vendor_name",
+      "number_of_users",
+      "business_purpose",
+      "intended_data_access_level"
+    ],
+    "risk_flags": [
+      "security_review_required",
+      "legal_review_required",
+      "vendor_risk_unavailable",
+      "existing_tool_overlap",
+      "missing_information"
+    ],
+    "next_step": "Request the missing information from the requester and ask if the existing approved tool, NeuralDesk Business, meets their needs.",
+    "rationale": "The request is incomplete and lacks a specific vendor. Before proceeding, the requester must provide the missing details and explain why the existing approved AI tool is insufficient for their business purpose."
+  },
+  "evidence_pack": null,
+  "tool_calls": [
+    {
+      "name": "get_request_details",
+      "arguments": {},
+      "latency_ms": 12.6
+    },
+    {
+      "name": "check_budget",
+      "arguments": {
+        "annual_cost_usd": 500,
+        "department": "Sales"
+      },
+      "latency_ms": 1.6
+    },
+    {
+      "name": "search_software_catalog",
+      "arguments": {
+        "category": "General AI"
+      },
+      "latency_ms": 5.1
+    },
+    {
+      "name": "get_vendor_registry",
+      "arguments": {
+        "vendor_name": ""
+      },
+      "latency_ms": 1.4
+    },
+    {
+      "name": "get_vendor_risk",
+      "arguments": {
+        "vendor_name": ""
+      },
+      "latency_ms": 0.0
+    },
+    {
+      "name": "run_policy_checks",
+      "arguments": {},
+      "latency_ms": 9.1
+    }
+  ],
+  "error": null,
+  "latency_ms": 4062.0
+}

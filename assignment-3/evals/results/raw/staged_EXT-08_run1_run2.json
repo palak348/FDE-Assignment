@@ -1,0 +1,244 @@
+{
+  "case": {
+    "case_id": "EXT-08",
+    "request_id": "REQ-9004",
+    "edge_case": "tool / API unavailable (unknown vendor)",
+    "title": "Vendor unknown to registry and risk service (404)",
+    "expectations": {
+      "approvals_all": [
+        "Department Head",
+        "Procurement",
+        "Security",
+        "Legal"
+      ],
+      "flags_all": [
+        "vendor_risk_unavailable",
+        "security_review_required"
+      ],
+      "acceptable_next_actions": [
+        "manual_review"
+      ]
+    }
+  },
+  "decision": {
+    "request_id": "REQ-9004",
+    "recommendation": "The request for QuantaNotes is within budget, but the vendor is new and lacks a security or risk profile. Manual review by Security and Legal is required before proceeding with the procurement process.",
+    "evidence": [
+      {
+        "source": "get_request_details",
+        "finding": "Request REQ-9004 for QuantaNotes (QuantaNotes Inc) at $3,000/year for 5 users.",
+        "reference": "requests/REQ-9004"
+      },
+      {
+        "source": "check_budget",
+        "finding": "The request is within the Sales department's available software budget ($18,000 available).",
+        "reference": "department_budgets.csv/Sales"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "No internal registry record for 'QuantaNotes Inc'.",
+        "reference": "vendors.csv"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "No vendor-risk record found for 'QuantaNotes Inc' (404).",
+        "reference": "GET /vendor-risk/QuantaNotes Inc"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Approval tier $1,000.01 - $10,000: $3,000.00 is between $1,000.01 and $10,000 -> minimum approvals Department Head, Procurement",
+        "reference": "Policy section 4"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Budget (Sales): $3,000 requested vs $18,000 available",
+        "reference": "department_budgets.csv/Sales; Policy section 2"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Vendor-risk service could not verify status (404: No vendor-risk record for 'QuantaNotes Inc')",
+        "reference": "Policy sections 5, 10"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Security review required: Vendor security status could not be verified (service unavailable)",
+        "reference": "Policy sections 5, 10"
+      },
+      {
+        "source": "run_policy_checks",
+        "finding": "Legal review required: Legal terms not approved/standard (status 'unknown')",
+        "reference": "Policy section 7"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Security",
+      "Legal"
+    ],
+    "missing_information": [],
+    "risk_flags": [
+      "security_review_required",
+      "legal_review_required",
+      "vendor_risk_unavailable"
+    ],
+    "next_step": "Route to Security and Legal teams for manual vendor assessment and contract review.",
+    "human_review_required": true,
+    "next_action": "manual_review",
+    "telemetry": {
+      "llm_calls": 3,
+      "tool_calls": 6,
+      "tool_names": [
+        "get_request_details",
+        "check_budget",
+        "search_software_catalog",
+        "get_vendor_registry",
+        "get_vendor_risk",
+        "run_policy_checks"
+      ],
+      "architecture": "staged",
+      "model": "gemini-3.1-flash-lite",
+      "prompt_tokens": 8981,
+      "completion_tokens": 1076,
+      "llm_latency_ms": 7068.9,
+      "guardrail_corrections": [
+        "dropped model missing-info not supported by request data: Vendor security assessment",
+        "dropped model missing-info not supported by request data: Vendor risk profile",
+        "dropped model missing-info not supported by request data: Legal terms approval status"
+      ],
+      "ungrounded_evidence_dropped": 0,
+      "llm_error": null
+    }
+  },
+  "raw_llm_decision": {
+    "recommendation": "The request for QuantaNotes is within budget, but the vendor is new and lacks a security or risk profile. Manual review by Security and Legal is required before proceeding with the procurement process.",
+    "next_action": "manual_review",
+    "evidence": [
+      {
+        "source": "get_request_details",
+        "finding": "Request REQ-9004 for QuantaNotes (QuantaNotes Inc) at $3,000/year for 5 users.",
+        "reference": "requests/REQ-9004"
+      },
+      {
+        "source": "check_budget",
+        "finding": "The request is within the Sales department's available software budget ($18,000 available).",
+        "reference": "department_budgets.csv/Sales"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "No internal registry record for 'QuantaNotes Inc'.",
+        "reference": "vendors.csv"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "No vendor-risk record found for 'QuantaNotes Inc' (404).",
+        "reference": "GET /vendor-risk/QuantaNotes Inc"
+      }
+    ],
+    "required_approvals": [
+      "Department Head",
+      "Procurement",
+      "Security",
+      "Legal"
+    ],
+    "missing_information": [
+      "Vendor security assessment",
+      "Vendor risk profile",
+      "Legal terms approval status"
+    ],
+    "risk_flags": [
+      "security_review_required",
+      "legal_review_required",
+      "vendor_risk_unavailable"
+    ],
+    "next_step": "Route to Security and Legal teams for manual vendor assessment and contract review.",
+    "rationale": "The vendor is not in the registry and has no risk record, triggering mandatory Security and Legal reviews per policy sections 5, 7, and 10."
+  },
+  "evidence_pack": {
+    "need_summary": "The requester (Sales) needs QuantaNotes for automatic call notes for five account executives at an annual cost of $3,000.",
+    "facts": [
+      {
+        "source": "get_request_details",
+        "finding": "Request REQ-9004 for QuantaNotes (QuantaNotes Inc) at $3,000/year for 5 users.",
+        "reference": "requests/REQ-9004"
+      },
+      {
+        "source": "check_budget",
+        "finding": "The request is within the Sales department's available software budget ($18,000 available).",
+        "reference": "department_budgets.csv/Sales"
+      },
+      {
+        "source": "search_software_catalog",
+        "finding": "No existing matches for 'QuantaNotes' or 'Meeting Notes' category in the approved catalog.",
+        "reference": "software_catalog.csv"
+      },
+      {
+        "source": "get_vendor_registry",
+        "finding": "No internal registry record for 'QuantaNotes Inc'.",
+        "reference": "vendors.csv"
+      },
+      {
+        "source": "get_vendor_risk",
+        "finding": "No vendor-risk record found for 'QuantaNotes Inc' (404).",
+        "reference": "GET /vendor-risk/QuantaNotes Inc"
+      }
+    ],
+    "existing_tools": {
+      "candidates": [],
+      "credible_gap": "No existing tools found in the 'Meeting Notes' category."
+    },
+    "vendor_status": "The vendor is not in the internal registry and has no vendor-risk record. Status could not be verified.",
+    "data_sensitivity": "The requester identified the data access level as 'internal_documents'.",
+    "unverified_or_missing": [
+      "Vendor security assessment",
+      "Vendor risk profile",
+      "Legal terms approval status"
+    ],
+    "untrusted_content_concerns": []
+  },
+  "tool_calls": [
+    {
+      "name": "get_request_details",
+      "arguments": {},
+      "latency_ms": 8.6
+    },
+    {
+      "name": "check_budget",
+      "arguments": {
+        "annual_cost_usd": 3000,
+        "department": "Sales"
+      },
+      "latency_ms": 2.0
+    },
+    {
+      "name": "search_software_catalog",
+      "arguments": {
+        "category": "Meeting Notes",
+        "vendor_name": "QuantaNotes Inc",
+        "product_name": "QuantaNotes"
+      },
+      "latency_ms": 5.6
+    },
+    {
+      "name": "get_vendor_registry",
+      "arguments": {
+        "vendor_name": "QuantaNotes Inc"
+      },
+      "latency_ms": 1.7
+    },
+    {
+      "name": "get_vendor_risk",
+      "arguments": {
+        "vendor_name": "QuantaNotes Inc"
+      },
+      "latency_ms": 7.4
+    },
+    {
+      "name": "run_policy_checks",
+      "arguments": {},
+      "latency_ms": 20.8
+    }
+  ],
+  "error": null,
+  "latency_ms": 22707.6
+}
