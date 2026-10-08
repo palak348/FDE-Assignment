@@ -14,7 +14,7 @@ class RunTelemetry(BaseModel):
     llm_calls: int | None = None
     tool_calls: int | None = None
     tool_names: list[str] = Field(default_factory=list)
-    # Optional extensions (backward compatible with the starter contract)
+    # Optional extensions (backward compatible with the original output contract)
     architecture: str | None = None
     model: str | None = None
     prompt_tokens: int | None = None

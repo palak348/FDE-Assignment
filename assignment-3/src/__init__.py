@@ -1,4 +1,4 @@
-"""Shared package initialization for the assessment starter pack.
+"""AI Procurement Request Copilot package.
 
 A local .env file is loaded automatically (without overriding variables already
 set by the operating system). This keeps `python run_local.py`, the public eval

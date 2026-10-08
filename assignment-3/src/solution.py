@@ -54,11 +54,10 @@ def run_with_trace(request: str | dict, architecture: Architecture = "single",
 
 
 def handle_request(request_id: str, architecture: Architecture = "single") -> ProcurementDecision:
-    """Assessment adapter.
+    """Public entry point used by the UI and the evaluation harness.
 
-    Keep this function callable by the public/hidden evaluation harness.
-    Your internal implementation may use any framework, modules, agents, tools,
-    deterministic checks, or orchestration strategy.
+    Runs the chosen architecture ("single" or "staged") on a stored request and
+    returns the guardrailed ProcurementDecision.
     """
     decision, _ = run_with_trace(request_id, architecture)
     return decision

@@ -49,7 +49,7 @@ def check_imports() -> None:
             + ", ".join(missing)
             + ". Run: python -m pip install -r requirements.txt"
         )
-    ok("Required starter packages import successfully")
+    ok("Required packages import successfully")
 
 
 def check_data() -> None:
@@ -136,7 +136,7 @@ def check_mock_api() -> None:
 
 
 def main() -> None:
-    print("FDE Assessment 3 - starter pack pre-flight\n")
+    print("AI Procurement Request Copilot - pre-flight checks\n")
     check_python()
     check_imports()
     check_data()
