@@ -398,7 +398,7 @@ def render_details(d: dict, trace: dict, tel: dict) -> None:
                 [{"#": i, "Tool": c.get("name"),
                   "Arguments": ", ".join(f"{k}={v}" for k, v in (c.get("arguments") or {}).items()) or "-",
                   "Latency": fmt_ms(c.get("latency_ms"))} for i, c in enumerate(tool_calls, 1)],
-                use_container_width=True, hide_index=True,
+                width="stretch", hide_index=True,
             )
             for i, call in enumerate(tool_calls, 1):
                 with st.expander(f"{i}. {call.get('name')} - result"):
@@ -428,7 +428,7 @@ def render_details(d: dict, trace: dict, tel: dict) -> None:
                 st.dataframe(
                     [{"Review": t.get("review"), "Reason": t.get("reason"), "Policy": t.get("policy_section")}
                      for t in triggers],
-                    use_container_width=True, hide_index=True,
+                    width="stretch", hide_index=True,
                 )
             else:
                 st.caption("None")
@@ -439,7 +439,7 @@ def render_details(d: dict, trace: dict, tel: dict) -> None:
                     [{"Product": m.get("product_name"), "Vendor": m.get("vendor_name"), "Status": m.get("status"),
                       "Scope": m.get("scope"), "Match": ", ".join(m.get("match_reasons") or []),
                       "Available to requester": m.get("available_to_requester")} for m in matches],
-                    use_container_width=True, hide_index=True,
+                    width="stretch", hide_index=True,
                 )
             with st.expander("Vendor assessment"):
                 st.json(rules.get("vendor") or {}, expanded=True)
@@ -524,7 +524,7 @@ def render_human_review(decision: Any, architecture: str) -> None:
                 [{"Time (UTC)": h.get("timestamp"), "Reviewer": h.get("reviewer"),
                   "Human decision": h.get("human_decision"), "AI next action": humanize(h.get("ai_next_action")),
                   "Architecture": h.get("architecture"), "Comment": h.get("comment")} for h in history],
-                use_container_width=True, hide_index=True,
+                width="stretch", hide_index=True,
             )
         else:
             st.caption("No decisions recorded yet.")
@@ -547,7 +547,7 @@ def sidebar_new_request_form() -> tuple[dict, bool]:
         data_level = st.selectbox("Data access level", DATA_ACCESS_LEVELS, format_func=humanize)
         integrations = st.text_input("Requested integrations", help="Comma-separated, e.g. CRM, Slack")
         urgency = st.selectbox("Urgency", URGENCY_LEVELS, format_func=humanize)
-        submitted = st.form_submit_button("Run analysis", type="primary", use_container_width=True,
+        submitted = st.form_submit_button("Run analysis", type="primary", width="stretch",
                                           icon=":material/play_arrow:")
     payload = {
         "requester_id": requester,
@@ -577,11 +577,7 @@ def main() -> None:
     st.sidebar.markdown('<div class="pc-brand">Procurement Copilot</div>'
                         '<div class="pc-brand-sub">Evidence-based purchase reviews</div>', unsafe_allow_html=True)
     modes = ["Sample request", "New request"]
-    if hasattr(st.sidebar, "segmented_control"):
-        mode = st.sidebar.segmented_control("Request", modes, default=modes[0], key="mode")
-    else:  # Streamlit < 1.40
-        mode = st.sidebar.radio("Request", modes, horizontal=True, key="mode")
-    mode = mode or modes[0]
+    mode = st.sidebar.segmented_control("Request", modes, default=modes[0], key="mode") or modes[0]
     architecture = st.sidebar.radio("Architecture", list(ARCH_LABELS), format_func=ARCH_LABELS.get,
                                     captions=[ARCH_CAPTIONS[a] for a in ARCH_LABELS], key="architecture")
 
@@ -598,10 +594,10 @@ def main() -> None:
         req = by_id[rid]
         cache_key = (rid, architecture)
         run_target = rid
-        clicked = st.sidebar.button("Run analysis", type="primary", use_container_width=True,
+        clicked = st.sidebar.button("Run analysis", type="primary", width="stretch",
                                     icon=":material/play_arrow:")
         if cache_key in results:
-            if st.sidebar.button("Re-run (calls the model again)", use_container_width=True,
+            if st.sidebar.button("Re-run (calls the model again)", width="stretch",
                                  icon=":material/refresh:"):
                 results.pop(cache_key, None)
                 clicked = True
@@ -640,7 +636,7 @@ def main() -> None:
                     results[cache_key] = (decision, trace, stored_req)
                     if mode == "New request":
                         st.session_state["last_new_key"] = cache_key
-                    req = stored_req
+                    st.rerun()  # redraw the sidebar too, so it reflects the cached result (Re-run button, count)
 
     model = os.getenv("LLM_MODEL") or "gemini-3.1-flash-lite"
     run_note.caption(f"Model: `{model}`  \n{len(results)} analysis run(s) cached this session - switching "

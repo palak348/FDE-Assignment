@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 import signal
+import socket
 import subprocess
 import sys
 import time
@@ -22,6 +23,16 @@ UI_PORT = int(os.getenv("UI_PORT", "8501"))
 
 def start(cmd: list[str]) -> subprocess.Popen:
     return subprocess.Popen(cmd, cwd=ROOT)
+
+
+def ensure_port_free(port: int, what: str) -> None:
+    """Fail early with a clear message if something (e.g. an earlier run) already uses the port."""
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        sock.settimeout(0.5)
+        if sock.connect_ex(("127.0.0.1", port)) == 0:
+            raise RuntimeError(
+                f"Port {port} for the {what} is already in use - probably an earlier run is still open. "
+                "Close it (Ctrl+C in its terminal) or set a different port in .env, then try again.")
 
 
 def wait_for_api(url: str, proc: subprocess.Popen, timeout_seconds: float = 10.0) -> None:
@@ -52,6 +63,8 @@ def main() -> None:
     signal.signal(signal.SIGTERM, _handle_termination)
     procs: list[subprocess.Popen] = []
     try:
+        ensure_port_free(API_PORT, "vendor-risk API")
+        ensure_port_free(UI_PORT, "UI")
         print(f"Starting vendor-risk API on {API_URL} ...")
         api_proc = start(
             [
@@ -114,4 +127,8 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except RuntimeError as exc:  # startup problems: show the message, not a traceback
+        print(f"\nCould not start: {exc}")
+        sys.exit(1)

@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/python-3.11%2B-3776AB?logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/mock%20API-FastAPI-009688?logo=fastapi&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-129%20passing-0A9EDC?logo=pytest&logoColor=white)
+![Tests](https://img.shields.io/badge/tests-154%20passing-0A9EDC?logo=pytest&logoColor=white)
 
 **Author:** Palak Agrawal &nbsp;|&nbsp; **Course:** Forward Deployed Engineering, Assessment 3
 
@@ -41,7 +41,7 @@ python verify_setup.py          # pre-flight check
 |---|---|
 | `python run_local.py` | **One-command start.** Launches the mock vendor-risk API (port 8001) and the UI at http://127.0.0.1:8501 |
 | `python run_request.py REQ-1006 --architecture both` | Runs one request through A and B in the terminal and prints each step: tool calls, evidence pack, guardrail corrections, decision |
-| `python -m pytest -q` | 129 offline tests, including the UI (no LLM or server needed) |
+| `python -m pytest -q` | 154 offline tests, including the UI and malformed inputs (no LLM or server needed) |
 
 The LLM client is OpenAI-compatible, so any provider or gateway works by setting `LLM_BASE_URL`,
 `LLM_API_KEY` and `LLM_MODEL` in `.env`. The default is Google Gemini's free tier.
@@ -274,6 +274,8 @@ python evals/run_comparison.py --architectures rules      # deterministic-only b
 - A "new vendor" is any vendor not marked Approved in the registry.
 - Legal review is needed whenever legal terms are not Approved, or for a new vendor at $10,000 or more.
 - A shared vendor alone is an existing relationship, not overlap. Overlap never causes an automatic rejection.
+- A department with no budget record is never treated as "within budget": it is flagged `budget_unverified` and goes to Finance and manual review.
+- Malformed input (text costs, negative or NaN numbers, odd spellings of data levels, integrations as a string) is normalised or treated as missing, never as favourable.
 
 Full list and Security/Privacy triggers: [`docs/architecture.md`](docs/architecture.md#assumptions).
 

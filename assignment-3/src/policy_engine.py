@@ -8,6 +8,7 @@ failures and prompt-injection patterns.
 """
 from __future__ import annotations
 
+import math
 import re
 from datetime import date
 from typing import Any
@@ -72,6 +73,29 @@ def _is_missing(value: Any) -> bool:
     return False
 
 
+def valid_number(value: Any) -> float | None:
+    """A usable cost / count: a real, finite, non-negative number (not bool, NaN or text)."""
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return None
+    if not math.isfinite(value) or value < 0:
+        return None
+    return value
+
+
+def normalize_data_level(value: Any) -> str:
+    """'Customer PII' / 'customer-pii' / ' customer_pii ' -> 'customer_pii'."""
+    return re.sub(r"[\s\-]+", "_", str(value or "").strip().lower())
+
+
+def normalize_integrations(value: Any) -> list[str] | None:
+    """List of integration names; a comma-separated string is split; None or other types -> None (missing)."""
+    if isinstance(value, str):
+        return [part.strip() for part in value.split(",") if part.strip()]
+    if isinstance(value, (list, tuple)):
+        return [str(v).strip() for v in value if str(v).strip()]
+    return None
+
+
 def _parse_date(value: Any) -> date | None:
     if not value or (isinstance(value, float) and value != value):  # NaN from pandas
         return None
@@ -95,17 +119,16 @@ def check_required_fields(request: dict, department: str | None) -> list[str]:
         missing.append("requester / department")
     if _is_missing(request.get("product_name")) or _is_missing(request.get("vendor_name")):
         missing.append("product / vendor")
-    cost = request.get("annual_cost_usd")
-    if cost is None or not isinstance(cost, (int, float)):
+    if valid_number(request.get("annual_cost_usd")) is None:
         missing.append("annual cost (or a reasonable annual estimate)")
-    users = request.get("user_count")
-    if users is None or not isinstance(users, (int, float)) or users <= 0:
+    users = valid_number(request.get("user_count"))
+    if users is None or users <= 0:
         missing.append("number of users / licenses")
     if _is_missing(request.get("business_justification")):
         missing.append("business purpose")
     if _is_missing(request.get("data_access_level")):
         missing.append("intended data access level")
-    if request.get("requested_integrations") is None:
+    if normalize_integrations(request.get("requested_integrations")) is None:
         missing.append("required integrations")
     return missing
 
@@ -221,6 +244,8 @@ def detect_prompt_injection(texts: dict[str, Any]) -> list[dict]:
     """Policy section 9: find instruction-like content inside business data."""
     hits: list[dict] = []
     for field, value in texts.items():
+        if isinstance(value, (list, tuple)):
+            value = " | ".join(str(v) for v in value)
         if not isinstance(value, str):
             continue
         for pattern in INJECTION_PATTERNS:
@@ -273,9 +298,9 @@ def evaluate_request(
     """Run every deterministic check and return the authoritative rule result."""
     ref_date = ref_date or policy_reference_date()
     department = (employee or {}).get("department")
-    cost = request.get("annual_cost_usd") if isinstance(request.get("annual_cost_usd"), (int, float)) else None
-    data_level = str(request.get("data_access_level") or "").strip().lower()
-    integrations = request.get("requested_integrations") or []
+    cost = valid_number(request.get("annual_cost_usd"))
+    data_level = normalize_data_level(request.get("data_access_level"))
+    integrations = normalize_integrations(request.get("requested_integrations")) or []
 
     missing = check_required_fields(request, department)
     tier = approval_tier(cost)
@@ -283,7 +308,7 @@ def evaluate_request(
     vendor = assess_vendor(registry, vendor_risk, ref_date)
     overlap = find_overlap(request, catalog, department)
 
-    injection_texts = {f"request.{k}": v for k, v in request.items() if isinstance(v, str)}
+    injection_texts = {f"request.{k}": v for k, v in request.items() if isinstance(v, (str, list, tuple))}
     if registry:
         injection_texts["vendor_registry.notes"] = registry.get("notes")
     if vendor_risk.get("ok"):
@@ -302,6 +327,11 @@ def evaluate_request(
         flags.append("budget_insufficient")
         approvals.append("Finance")
         trigger("Finance", f"Budget exception: {budget['reason']}", "Policy section 2")
+    elif budget_row is None and department:
+        # Section 10: an unavailable data source must not be read as a favourable status.
+        flags.append("budget_unverified")
+        trigger("Finance", f"No budget record for department '{department}' - budget cannot be verified",
+                "Policy sections 2, 10")
 
     # Security (section 5)
     if data_level in SECURITY_DATA_LEVELS:
@@ -360,7 +390,8 @@ def evaluate_request(
     # Baseline next action: the most conservative state wins.
     if missing:
         next_action = "request_info"
-    elif injection or not vendor["risk_service_ok"] or "conflicting_vendor_evidence" in vendor["flags"]:
+    elif (injection or not vendor["risk_service_ok"] or "conflicting_vendor_evidence" in vendor["flags"]
+          or "budget_unverified" in flags):
         next_action = "manual_review"
     else:
         next_action = "route_for_approval"

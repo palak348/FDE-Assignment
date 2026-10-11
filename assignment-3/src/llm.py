@@ -106,7 +106,7 @@ class OpenAICompatibleLLM:
             raise LLMError("No LLM API key configured. Set LLM_API_KEY (or GEMINI_API_KEY) in .env")
         self.client = OpenAI(api_key=key, base_url=self.base_url, timeout=float(os.getenv("LLM_TIMEOUT", "90")),
                              max_retries=0)
-        self.max_retries = int(os.getenv("LLM_MAX_RETRIES", "5"))
+        self.max_retries = max(0, int(os.getenv("LLM_MAX_RETRIES", "5")))
         rpm = int(os.getenv("LLM_RPM", "8"))
         self.limiter = _LIMITERS.setdefault(rpm, _RateLimiter(rpm))
         cache_dir = os.getenv("LLM_CACHE_DIR")
@@ -157,7 +157,8 @@ class OpenAICompatibleLLM:
             latency = (time.perf_counter() - start) * 1000
             if not resp.choices:
                 last_error = LLMError("Empty response (no choices)")
-                time.sleep(self._backoff(None, attempt))
+                if attempt < self.max_retries:
+                    time.sleep(self._backoff(None, attempt))
                 continue
             msg = resp.choices[0].message
             tool_calls = [ToolCallRequest(t.id, t.function.name, _parse_tool_args(t.function.arguments))

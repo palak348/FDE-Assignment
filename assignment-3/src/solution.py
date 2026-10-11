@@ -48,9 +48,16 @@ def run_with_trace(request: str | dict, architecture: Architecture = "single",
         "error": error,
         "tool_calls": [{"name": c.name, "arguments": c.arguments, "result": c.result, "latency_ms": c.latency_ms}
                        for c in ctx.calls],
-        "rules": ctx.rules(),
+        "rules": _safe_rules(ctx),
     })
     return decision, trace
+
+
+def _safe_rules(ctx: RunContext) -> dict:
+    try:
+        return ctx.rules()
+    except Exception:  # finalize already returned a manual-review decision for this case
+        return {}
 
 
 def handle_request(request_id: str, architecture: Architecture = "single") -> ProcurementDecision:

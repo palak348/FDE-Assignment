@@ -86,6 +86,8 @@ flowchart LR
 | Registry and risk service disagree | `conflicting_vendor_evidence`, Security, `manual_review` |
 | Instruction-like text in request / vendor notes | ignored, `prompt_injection_detected`, `manual_review` |
 | Budget exceeded | `budget_insufficient` + Finance |
+| No budget record for the department | `budget_unverified` + Finance, `manual_review` |
+| Rules engine fails on malformed data | `rules_engine_error`, Procurement, `manual_review` (never a crash) |
 | Tool-loop budget (5 rounds) exhausted | model forced to answer; guardrails still apply |
 | LLM unavailable | rules-only decision, `llm_unavailable` |
 

@@ -63,7 +63,8 @@ class RunContext:
         return None
 
     def vendor_risk(self, vendor_name: str) -> dict:
-        key = str(vendor_name or "").lower()
+        # Exact name: the service lookup is case-sensitive, so "signflow" and "SignFlow" are different calls.
+        key = str(vendor_name or "").strip()
         if key not in self._vendor_risk_cache:
             self._vendor_risk_cache[key] = safe_get_vendor_risk(vendor_name)
         return self._vendor_risk_cache[key]

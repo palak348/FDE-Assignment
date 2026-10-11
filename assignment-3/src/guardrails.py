@@ -29,17 +29,19 @@ CONSERVATISM = {"route_for_approval": 0, "reuse_existing": 1, "reject": 1, "manu
 
 BUSINESS_APPROVALS = {"Manager", "Department Head", "Finance", "CFO"}
 REVIEW_APPROVALS = {"Procurement", "Security", "Privacy", "Legal"}
+# Specific roles first, so "Head of Legal" is Legal and "Security Director" is Security, not Department Head.
 APPROVAL_SYNONYMS = [
-    ("department head", "Department Head"), ("dept head", "Department Head"), ("head of", "Department Head"),
-    ("director", "Department Head"), ("cfo", "CFO"), ("chief financial", "CFO"), ("finance", "Finance"),
-    ("procurement", "Procurement"), ("infosec", "Security"), ("security", "Security"), ("privacy", "Privacy"),
-    ("dpo", "Privacy"), ("legal", "Legal"), ("counsel", "Legal"), ("manager", "Manager"),
+    ("cfo", "CFO"), ("chief financial", "CFO"), ("procurement", "Procurement"), ("infosec", "Security"),
+    ("security", "Security"), ("privacy", "Privacy"), ("dpo", "Privacy"), ("legal", "Legal"), ("counsel", "Legal"),
+    ("finance", "Finance"), ("department head", "Department Head"), ("dept head", "Department Head"),
+    ("head of", "Department Head"), ("director", "Department Head"), ("manager", "Manager"),
 ]
 
 # Flags the rules engine decides on its own (set or cleared by code).
-DETERMINISTIC_FLAGS = {"budget_insufficient", "vendor_risk_unavailable", "vendor_review_expired",
+# missing_information follows the final missing-information list (set below in finalize).
+DETERMINISTIC_FLAGS = {"budget_insufficient", "budget_unverified", "vendor_risk_unavailable", "vendor_review_expired",
                        "conflicting_vendor_evidence", "security_review_required", "privacy_review_required",
-                       "legal_review_required"}
+                       "legal_review_required", "missing_information"}
 FLAG_SYNONYMS = [
     ("overlap", "existing_tool_overlap"), ("existing_tool", "existing_tool_overlap"),
     ("budget", "budget_insufficient"), ("injection", "prompt_injection_detected"),
@@ -61,10 +63,25 @@ MISSING_FIELD_KEYWORDS = {
 }
 
 
+def _text(v: Any, default: str = "") -> str:
+    """Lenient string field: None -> default, numbers and other scalars -> str."""
+    return default if v is None else (v if isinstance(v, str) else str(v))
+
+
 class LLMEvidence(BaseModel):
     source: str = ""
     finding: str = ""
     reference: str | None = None
+
+    @field_validator("source", "finding", mode="before")
+    @classmethod
+    def _coerce_text(cls, v: Any) -> str:
+        return _text(v)
+
+    @field_validator("reference", mode="before")
+    @classmethod
+    def _coerce_reference(cls, v: Any) -> str | None:
+        return None if v is None else _text(v)
 
 
 class LLMDecision(BaseModel):
@@ -77,6 +94,21 @@ class LLMDecision(BaseModel):
     risk_flags: list[str] = Field(default_factory=list)
     next_step: str = ""
     rationale: str | None = None
+
+    @field_validator("recommendation", "next_step", mode="before")
+    @classmethod
+    def _coerce_text(cls, v: Any) -> str:
+        return _text(v)
+
+    @field_validator("next_action", mode="before")
+    @classmethod
+    def _coerce_action(cls, v: Any) -> str:
+        return _text(v, "manual_review") or "manual_review"
+
+    @field_validator("rationale", mode="before")
+    @classmethod
+    def _coerce_rationale(cls, v: Any) -> str | None:
+        return None if v is None else _text(v)
 
     @field_validator("evidence", mode="before")
     @classmethod
@@ -120,7 +152,7 @@ def normalize_approval(text: str) -> str | None:
 
 def normalize_flag(text: str) -> str:
     low = re.sub(r"[\s\-]+", "_", text.strip().lower())
-    known = {"existing_tool_overlap", "budget_insufficient", "security_review_required", "privacy_review_required",
+    known = {"existing_tool_overlap", "budget_insufficient", "budget_unverified", "security_review_required", "privacy_review_required",
              "legal_review_required", "vendor_review_expired", "conflicting_vendor_evidence",
              "vendor_risk_unavailable", "prompt_injection_detected", "missing_information"}
     if low in known:
@@ -170,7 +202,8 @@ def _numbers_grounded(finding: str, corpus: str) -> bool:
             candidates |= {str(int(f)), f"{f:.1f}", f"{f}"}
         except ValueError:
             pass
-        if not any(c in corpus for c in candidates):
+        # Whole-number match: "800" must not be "found" inside "18000".
+        if not any(re.search(rf"(?<![\d.]){re.escape(c)}(?!\d)", corpus) for c in candidates):
             return False
     return True
 
@@ -260,7 +293,19 @@ def finalize(ctx: RunContext, llm: LLMDecision | None, *, architecture: str, mod
     if "run_policy_checks" not in ctx.called_tool_names():
         ctx.call("run_policy_checks", {})  # guardrail always runs the deterministic engine
         corrections.append("guardrail ran run_policy_checks (model did not call it)")
-    rules = ctx.rules()
+    try:
+        rules = ctx.rules()
+    except Exception as exc:  # malformed request data: never crash, never decide favourably
+        reason = f"{exc.__class__.__name__}: {exc}"
+        return ProcurementDecision(
+            request_id=str(ctx.request.get("request_id")),
+            recommendation="Deterministic policy checks could not run on this request - escalate to manual review.",
+            evidence=[], required_approvals=["Procurement"],
+            missing_information=["request data could not be validated"],
+            risk_flags=["rules_engine_error", "missing_information"],
+            next_step="Procurement reviews the request manually and asks the requester to correct the data.",
+            human_review_required=True, next_action="manual_review",
+            telemetry=_telemetry(ctx, architecture, model, [f"rules engine failed: {reason}"], 0, llm_error))
     rule_approvals = set(rules["required_approvals"])
     rule_flags = set(rules["risk_flags"])
     baseline = rules["baseline_next_action"]
@@ -326,6 +371,9 @@ def finalize(ctx: RunContext, llm: LLMDecision | None, *, architecture: str, mod
     if CONSERVATISM[action] < CONSERVATISM[baseline]:
         corrections.append(f"next_action {action} overridden to rules baseline {baseline}")
         action = baseline
+    if action == "request_info" and not missing:
+        corrections.append("next_action request_info overridden to manual_review (no missing information remains)")
+        action = "manual_review"
     if missing and action not in {"request_info", "manual_review"}:
         corrections.append(f"next_action {action} overridden to request_info (missing information)")
         action = "request_info"

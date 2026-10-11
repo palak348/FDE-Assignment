@@ -4,7 +4,7 @@ pydantic>=2.9,<3
 pandas>=2.2,<3
 requests>=2.32,<3
 python-dotenv>=1.0,<2
-streamlit>=1.40,<2
+streamlit>=1.50,<2
 httpx>=0.27,<1
 # OpenAI-compatible client: works with Gemini's OpenAI endpoint or any LLM gateway
 openai>=1.50,<3
