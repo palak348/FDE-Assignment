@@ -99,7 +99,9 @@ class OpenAICompatibleLLM:
         self.model = model or os.getenv("LLM_MODEL") or DEFAULT_MODEL
         self.fallback_models = [m.strip() for m in os.getenv("LLM_FALLBACK_MODELS", "").split(",") if m.strip()]
         self.base_url = base_url or os.getenv("LLM_BASE_URL") or DEFAULT_BASE_URL
-        key = api_key or os.getenv("LLM_API_KEY") or os.getenv("GEMINI_API_KEY") or os.getenv("OPENAI_API_KEY")
+        # A value left as the .env.example placeholder ("your-...-key") counts as unset.
+        candidates = [api_key] + [os.getenv(v) for v in ("LLM_API_KEY", "GEMINI_API_KEY", "OPENAI_API_KEY")]
+        key = next((k.strip() for k in candidates if k and k.strip() and not k.strip().startswith("your-")), None)
         if not key:
             raise LLMError("No LLM API key configured. Set LLM_API_KEY (or GEMINI_API_KEY) in .env")
         self.client = OpenAI(api_key=key, base_url=self.base_url, timeout=float(os.getenv("LLM_TIMEOUT", "90")),

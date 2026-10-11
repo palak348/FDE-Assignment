@@ -1,0 +1,12 @@
+# Accent colour for both themes; Streamlit still follows the viewer's light/dark setting.
+[theme.light]
+primaryColor = "#4F46E5"
+
+[theme.dark]
+primaryColor = "#818CF8"
+
+[client]
+toolbarMode = "minimal"
+
+[browser]
+gatherUsageStats = false

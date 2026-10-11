@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/python-3.11%2B-3776AB?logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/mock%20API-FastAPI-009688?logo=fastapi&logoColor=white)
-![Tests](https://img.shields.io/badge/tests-125%20passing-0A9EDC?logo=pytest&logoColor=white)
+![Tests](https://img.shields.io/badge/tests-129%20passing-0A9EDC?logo=pytest&logoColor=white)
 
 **Author:** Palak Agrawal &nbsp;|&nbsp; **Course:** Forward Deployed Engineering, Assessment 3
 
@@ -15,6 +15,8 @@
 **Ship decision: Architecture A, the single agent.** It matched the two-agent variant on every quality
 metric, with 43% lower latency and a third fewer tokens. See [Evaluation](#evaluation) and the
 [decision memo](docs/decision_memo.md).
+
+![Procurement Request Copilot UI analysing a prompt-injection request](docs/ui_screenshot.png)
 
 **Contents:** [Quick start](#quick-start) · [How the agents work](#how-the-agents-work) ·
 [Worked example](#worked-example-a-prompt-injection-request) · [Product UI](#product-ui) ·
@@ -39,7 +41,7 @@ python verify_setup.py          # pre-flight check
 |---|---|
 | `python run_local.py` | **One-command start.** Launches the mock vendor-risk API (port 8001) and the UI at http://127.0.0.1:8501 |
 | `python run_request.py REQ-1006 --architecture both` | Runs one request through A and B in the terminal and prints each step: tool calls, evidence pack, guardrail corrections, decision |
-| `python -m pytest -q` | 125 offline tests (no LLM or server needed) |
+| `python -m pytest -q` | 129 offline tests, including the UI (no LLM or server needed) |
 
 The LLM client is OpenAI-compatible, so any provider or gateway works by setting `LLM_BASE_URL`,
 `LLM_API_KEY` and `LLM_MODEL` in `.env`. The default is Google Gemini's free tier.
@@ -205,10 +207,11 @@ Every evaluated run is saved with its tool calls, raw model output and final dec
 
 1. **Request details:** pick a sample request or submit a new one. Requester text is labelled untrusted, with a warning if injected instructions are found.
 2. **Recommendation:** next-action badge, recommendation, required approvals, risk flags, missing information and next step.
-3. **Evidence panel:** every evidence item with its source tool and reference, plus expanders for raw tool calls, rule results, guardrail corrections, raw model output and (for B) the evidence pack.
-4. **Human review:** the reviewer records Route / Request info / Reject / Override with a comment, saved to `audit_log.jsonl`. The copilot itself never approves or buys anything.
+3. **Run statistics:** latency, LLM calls, tool calls, tokens and model for every run.
+4. **Evidence & trace tabs:** every evidence item with its source tool and reference, plus tabs for the tool calls, the deterministic rule checks, guardrail corrections, the raw model output and (for B) the analyst's evidence pack.
+5. **Human review:** the reviewer records Route / Request info / Reject / Override with a comment, saved to `audit_log.jsonl`. The copilot itself never approves or buys anything.
 
-Switch between Architecture A and B from the sidebar.
+Switch between Architecture A and B from the sidebar. The UI follows your light or dark theme.
 
 ---
 

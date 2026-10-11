@@ -197,3 +197,18 @@ def test_prompt_injection_request_never_routes_with_cfo():
     assert "CFO" not in decision.required_approvals
     assert "prompt_injection_detected" in decision.risk_flags
     assert "is approved" not in decision.recommendation.lower()
+
+
+def test_placeholder_api_key_falls_back_to_gemini_key(monkeypatch):
+    from src.llm import OpenAICompatibleLLM
+    monkeypatch.setenv("LLM_API_KEY", "your-gemini-or-gateway-key")
+    monkeypatch.setenv("GEMINI_API_KEY", "real-test-key")
+    assert OpenAICompatibleLLM().client.api_key == "real-test-key"
+
+
+def test_placeholder_api_key_alone_is_treated_as_missing(monkeypatch):
+    import pytest
+    from src.llm import OpenAICompatibleLLM
+    monkeypatch.setenv("LLM_API_KEY", "your-gemini-or-gateway-key")
+    with pytest.raises(LLMError):
+        OpenAICompatibleLLM()
